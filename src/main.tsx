@@ -12,3 +12,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </BrowserRouter>
   </React.StrictMode>,
 );
+
+// RTL Support
+document.getElementsByTagName('html')[0].setAttribute('dir', 'rtl');
