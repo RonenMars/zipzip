@@ -5,8 +5,8 @@ interface InputProps {
   name: string;
   placeholder: string;
 }
-const Input: React.FC<InputProps> = ({ name, placeholder, onChange }: InputProps) => {
-  return <input name={name} onChange={onChange} placeholder={placeholder} />;
+const Input: React.FC<InputProps> = ({ name, placeholder, onChange, ...props }: InputProps) => {
+  return <input name={name} onChange={onChange} placeholder={placeholder} {...props} />;
 };
 
 export default Input;
