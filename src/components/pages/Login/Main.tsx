@@ -9,7 +9,7 @@ const Login: React.FC = () => {
   return (
     <Form>
       <Input name="phoneNumber" placeholder={t('demoPhoneNumber')} label={t('phoneNumber')} />
-      <Button type="submit">Submit</Button>
+      <Button type="submit">{t('enter')}</Button>
     </Form>
   );
 };
