@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from '@components/atoms';
+import { Button, Input } from '@components/atoms';
 import { Form } from '@components/molecules';
 
 const Login: React.FC = () => {
@@ -7,6 +7,7 @@ const Login: React.FC = () => {
     <Form>
       <Input name="firstName" placeholder="Type your first name" />
       <Input name="lastName" placeholder="Type your last name" />
+      <Button type="submit">Submit</Button>
     </Form>
   );
 };

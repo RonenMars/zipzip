@@ -1,24 +1,11 @@
 import React from 'react';
 import './App.css';
-import { Link } from 'react-router-dom';
-import Main from '@components/templates/Login';
+import { Login } from '@components/pages';
 
 function App() {
   return (
     <>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/topics">Topics</Link>
-        </li>
-        <li>
-          <Link to="/settings">Settings</Link>
-        </li>
-      </ul>
-      <hr />
-      <Main />
+      <Login />
     </>
   );
 }

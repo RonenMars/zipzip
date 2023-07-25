@@ -31,12 +31,7 @@ const Form: React.FC<FormProps> = ({ children }) => {
     console.log(formState);
   };
 
-  return (
-    <form onSubmit={submitForm}>
-      {childrenWithProps}
-      <button type="submit">Submit</button>
-    </form>
-  );
+  return <form onSubmit={submitForm}>{childrenWithProps}</form>;
 };
 
 export default Form;
