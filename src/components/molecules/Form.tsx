@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 
 interface FormProps {
   children: React.ReactNode;
+  className?: string;
 }
 
-const Form: React.FC<FormProps> = ({ children }) => {
+const Form: React.FC<FormProps> = ({ children, className = ''}) => {
   const [formState, setFormState] = useState<Record<string, string>>({});
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +32,7 @@ const Form: React.FC<FormProps> = ({ children }) => {
     console.log(formState);
   };
 
-  return <form onSubmit={submitForm}>{childrenWithProps}</form>;
+  return <form className={className} onSubmit={submitForm}>{childrenWithProps}</form>;
 };
 
 export default Form;
