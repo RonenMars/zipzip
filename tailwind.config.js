@@ -7,6 +7,7 @@ module.exports = {
         DEFAULT: '#D7BBF5',
         100: '#8E6AD0',
         200: '#6C4EB0',
+        300: '#7757BA',
         500: '#6044A5',
       },
       white: '#FFFFFF',
