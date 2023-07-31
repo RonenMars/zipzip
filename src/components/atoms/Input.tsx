@@ -10,6 +10,7 @@ const Input: React.FC<InputProps> = ({ name, placeholder, onChange, label, ...pr
   return (
     <div>
       <label htmlFor={name}>{label}</label>
+      <br />
       <input name={name} onChange={onChange} placeholder={placeholder} {...props} />
     </div>
   );
