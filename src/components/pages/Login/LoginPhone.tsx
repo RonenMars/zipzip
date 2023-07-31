@@ -12,7 +12,9 @@ const Login: React.FC = () => {
         <h1 className="text-center">{t('enter')}</h1>
         <Form classes="pt-4">
           <Input name="phoneNumber" placeholder={t('demoPhoneNumber')} label={t('phoneNumber')} />
-          <Button type="submit">{t('enter')}</Button>
+          <Button type="submit" classes="mt-4">
+            {t('enter')}
+          </Button>
         </Form>
       </div>
     </>

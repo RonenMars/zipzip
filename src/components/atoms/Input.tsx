@@ -15,7 +15,7 @@ const Input: React.FC<InputProps> = ({ name, placeholder, onChange, label, ...pr
         onChange={onChange}
         placeholder={placeholder}
         {...props}
-        className="h-12 border border-purple rounded-full placeholder:text-center placeholder:text-base mt-4"
+        className="w-full h-12 border border-purple rounded-full placeholder:text-center placeholder:text-base mt-4"
       />
     </div>
   );

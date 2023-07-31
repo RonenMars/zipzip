@@ -1,13 +1,23 @@
 import React from 'react';
 
-export interface ButtonProps
+interface ButtonProps
   extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>,
-    React.AriaAttributes {}
+    React.AriaAttributes {
+  children: React.ReactNode;
+  classes: string;
+}
 
-export const Button: React.FC<ButtonProps> = (props) => {
-  const { children, ...rest } = props;
+const Button: React.FC<ButtonProps> = (props) => {
+  const { children, classes, ...rest } = props;
 
-  return <button {...rest}>{children}</button>;
+  return (
+    <button
+      {...rest}
+      className={`w-full h-12 text-center text-white bg-gradient-to-b from-purple-100 to-purple-200 via-purple-500 rounded-full font-bold ${classes}`}
+    >
+      {children}
+    </button>
+  );
 };
 
 export default Button;

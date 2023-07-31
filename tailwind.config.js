@@ -3,7 +3,12 @@ module.exports = {
   theme: {
     extend: {},
     colors: {
-      purple: '#D7BBF5',
+      purple: {
+        DEFAULT: '#D7BBF5',
+        100: '#8E6AD0',
+        200: '#6C4EB0',
+        500: '#6044A5',
+      },
       white: '#FFFFFF',
     },
   },
