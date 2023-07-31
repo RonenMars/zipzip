@@ -19,7 +19,7 @@ const Login: React.FC = () => {
         </Form>
         <div className="text-center">
           <h2 className="mt-4">חדשים פה?</h2>
-          <Button design={buttonDesignTypes.Link}>הירשמו עכשיו</Button>
+          <Button design={buttonDesignTypes.Link}>{t('registerNow')}</Button>
         </div>
       </div>
     </>
