@@ -31,7 +31,7 @@ const Login: React.FC = () => {
           </Button>
         </Form>
         <div className="text-center">
-          <h2 className="mt-4">חדשים פה?</h2>
+          <h2 className="mt-4">{t('loginRegisterTitle')}</h2>
           <Button design={buttonDesignTypes.Link}>{t('registerNow')}</Button>
         </div>
       </div>
