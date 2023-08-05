@@ -6,7 +6,6 @@ interface FormProps {
   children: React.ReactNode;
   classes: string;
   validationSchema: Yup.AnyObjectSchema;
-  formName: string;
 }
 
 export interface FormValidationError {
@@ -14,7 +13,7 @@ export interface FormValidationError {
 }
 export const ThemeContext = createContext({});
 
-export const Form: React.FC<FormProps> = ({ children, classes, validationSchema, formName }) => {
+export const Form: React.FC<FormProps> = ({ children, classes, validationSchema }) => {
   const [formState, setFormState] = useState<Record<string, string>>({});
   const [formErrors, setFormErrors] = useState({} as FormValidationError);
 

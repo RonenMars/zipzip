@@ -16,7 +16,7 @@ const Login: React.FC = () => {
     <>
       <div className="flex justify-center flex-col">
         <h1 className="text-center">{t('enter')}</h1>
-        <Form classes="pt-4" validationSchema={LoginPhoneSchema} formName="LoginPhone">
+        <Form classes="pt-4" validationSchema={LoginPhoneSchema}>
           <Input
             name="phoneNumber"
             placeholder={t('demoPhoneNumber')}
