@@ -13,14 +13,14 @@ interface InputProps {
 const Input: React.FC<InputProps> = ({ name, placeholder, onChange, label, classes, ...props }: InputProps) => {
   const formErrors = useContext(ThemeContext);
   const currentFormErrors = formErrors as FormValidationError;
-
+  const inputError = currentFormErrors[name as keyof FormValidationError];
   const [errorTextClass, setErrorTextClass] = React.useState('');
 
   const baseClass = [
     'w-full h-12 border border-purple rounded-full placeholder:text-center placeholder:text-base mt-4',
   ];
   const ErrorClass = 'border-red text-red';
-  const ErrorTextClass = 'text-red text-sm mt-2 text-center';
+  const ErrorTextClass = 'text-red text-sm mt-1 text-center';
 
   const [inputClass, setInputClass] = React.useState(clsx(baseClass, classes));
 
@@ -48,9 +48,7 @@ const Input: React.FC<InputProps> = ({ name, placeholder, onChange, label, class
     <div>
       <label htmlFor={name}>{label}</label>
       <input name={name} onChange={onChange} placeholder={placeholder} {...props} className={inputClass} />
-      {currentFormErrors[name as keyof FormValidationError] && (
-        <div className={errorTextClass}>{currentFormErrors[name as keyof FormValidationError]}</div>
-      )}
+      {inputError && <div className={errorTextClass}>{inputError}</div>}
     </div>
   );
 };

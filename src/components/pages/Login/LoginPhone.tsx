@@ -9,7 +9,10 @@ const Login: React.FC = () => {
   const { t } = useTranslation();
 
   const LoginPhoneSchema = Yup.object().shape({
-    phoneNumber: Yup.string().min(10, 'Too Short!').max(10, 'Too Long!').required('Required'),
+    phoneNumber: Yup.string()
+      .min(10, t('tooShortPhoneNumber'))
+      .max(10, t('tooLongPhoneNumber'))
+      .required(t('fieldRequired')),
   });
 
   return (

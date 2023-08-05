@@ -25,20 +25,24 @@ export const Form: React.FC<FormProps> = ({ children, classes, validationSchema 
     });
   };
 
-  const handleOnBlur = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleErrors = (error: unknown) => {
+    if (error instanceof Yup.ValidationError) {
+      const errorsObj = error.inner.reduce((errors, error) => {
+        if (typeof error.path !== 'undefined') errors[error.path as keyof FormValidationError] = error.message;
+        return errors;
+      }, {} as FormValidationError);
+      setFormErrors(errorsObj);
+    }
+  };
+
+  const validate = async (event?: React.ChangeEvent<HTMLInputElement>) => {
     try {
+      const inputName: string = event?.target.name as string;
       await validationSchema.validate(formState, { abortEarly: false });
-      const errors1 = omit(formErrors, event.target.name) as FormValidationError;
-      setFormErrors(errors1);
-      // form is valid, do your stuff
-    } catch (err: unknown) {
-      if (err instanceof Yup.ValidationError) {
-        const errors1 = err.inner.reduce((errors, error) => {
-          if (typeof error.path !== 'undefined') errors[error.path as keyof FormValidationError] = error.message;
-          return errors;
-        }, {} as FormValidationError);
-        setFormErrors(errors1);
-      }
+      const errorsObj = omit(formErrors, inputName) as FormValidationError;
+      setFormErrors(errorsObj);
+    } catch (error: unknown) {
+      handleErrors(error);
     }
   };
 
@@ -46,7 +50,7 @@ export const Form: React.FC<FormProps> = ({ children, classes, validationSchema 
     if (React.isValidElement(child)) {
       const onChange = {
         onChange: handleInputChange,
-        onBlur: handleOnBlur,
+        onBlur: validate,
       };
 
       return React.cloneElement(child, onChange);
@@ -54,24 +58,9 @@ export const Form: React.FC<FormProps> = ({ children, classes, validationSchema 
     return child;
   });
 
-  const submitForm = async (event: React.SyntheticEvent<HTMLFormElement>) => {
+  const submitForm = (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formState);
-
-    // try {
-    //   await validationSchema.validate(formState, { abortEarly: false });
-
-    //   // form is valid, do your stuff
-    // } catch (err) {
-    //   const errors1 = err.inner.reduce((errors, error) => {
-    //     errors[error.path] = error.message;
-    //     return errors;
-    //   }, {});
-
-    //   console.log(errors1);
-
-    //   setFormErrors(errors1);
-    // }
+    validate();
   };
 
   return (
