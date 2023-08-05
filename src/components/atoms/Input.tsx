@@ -12,33 +12,44 @@ interface InputProps {
 }
 const Input: React.FC<InputProps> = ({ name, placeholder, onChange, label, classes, ...props }: InputProps) => {
   const formErrors = useContext(ThemeContext);
+  const currentFormErrors = formErrors as FormValidationError;
+
+  const [errorTextClass, setErrorTextClass] = React.useState('');
 
   const baseClass = [
     'w-full h-12 border border-purple rounded-full placeholder:text-center placeholder:text-base mt-4',
   ];
-  const [inputClass, setInputClass] = React.useState(clsx(baseClass, classes));
   const ErrorClass = 'border-red text-red';
   const ErrorTextClass = 'text-red text-sm mt-2 text-center';
 
-  useEffect(() => {
-    console.log('formErrors', formErrors);
-    Object.keys(formErrors).map((key: string) => {
-      console.log(key, formErrors[key as keyof FormValidationError]);
-      console.log(key === name);
+  const [inputClass, setInputClass] = React.useState(clsx(baseClass, classes));
 
-      if (key === name && formErrors[key as keyof FormValidationError]) {
+  useEffect(() => {
+    const currentErrors = formErrors as FormValidationError;
+    const isError = Object.keys(formErrors).filter((key: string) => {
+      const isFieldError = key === name && currentErrors[key as keyof FormValidationError];
+
+      if (isFieldError) {
         setInputClass(clsx(baseClass, classes, ErrorClass));
+        setErrorTextClass(ErrorTextClass);
       }
+      return isFieldError;
     });
 
+    if (!isError.length) {
+      setInputClass(clsx(baseClass, classes));
+      setErrorTextClass('');
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formErrors[name as keyof FormValidationError]]);
+  }, [currentFormErrors[name as keyof FormValidationError]]);
+
   return (
     <div>
       <label htmlFor={name}>{label}</label>
       <input name={name} onChange={onChange} placeholder={placeholder} {...props} className={inputClass} />
-      {formErrors[name as keyof FormValidationError] && (
-        <div className={ErrorTextClass}>{formErrors[name as keyof FormValidationError]}</div>
+      {currentFormErrors[name as keyof FormValidationError] && (
+        <div className={errorTextClass}>{currentFormErrors[name as keyof FormValidationError]}</div>
       )}
     </div>
   );

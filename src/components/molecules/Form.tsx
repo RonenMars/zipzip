@@ -10,13 +10,9 @@ interface FormProps {
 }
 
 export interface FormValidationError {
-  errorMessage: string;
+  [key: string]: string;
 }
-
-export interface FormError {
-  formName: FormValidationError;
-}
-export const ThemeContext = createContext({} as FormValidationError);
+export const ThemeContext = createContext({});
 
 export const Form: React.FC<FormProps> = ({ children, classes, validationSchema, formName }) => {
   const [formState, setFormState] = useState<Record<string, string>>({});
@@ -33,8 +29,8 @@ export const Form: React.FC<FormProps> = ({ children, classes, validationSchema,
   const handleOnBlur = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
       await validationSchema.validate(formState, { abortEarly: false });
-      const errors1 = omit(formErrors, event.target.name);
-      setFormErrors(errors1 as FormValidationError);
+      const errors1 = omit(formErrors, event.target.name) as FormValidationError;
+      setFormErrors(errors1);
       // form is valid, do your stuff
     } catch (err: unknown) {
       if (err instanceof Yup.ValidationError) {
@@ -42,10 +38,7 @@ export const Form: React.FC<FormProps> = ({ children, classes, validationSchema,
           if (typeof error.path !== 'undefined') errors[error.path as keyof FormValidationError] = error.message;
           return errors;
         }, {} as FormValidationError);
-        console.log({
-          [formName]: errors1,
-        });
-        // setFormErrors();
+        setFormErrors(errors1);
       }
     }
   };
