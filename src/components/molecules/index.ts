@@ -1,2 +1,2 @@
-import Form from './Form'
-export {Form}
+import { Form, ThemeContext } from './Form';
+export { Form, ThemeContext };
