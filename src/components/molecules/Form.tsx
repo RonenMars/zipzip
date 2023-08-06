@@ -1,11 +1,11 @@
 import React, { useState, createContext } from 'react';
-import * as Yup from 'yup';
+import { ValidationError, AnyObjectSchema } from 'yup';
 import { omit } from 'lodash';
 
 interface FormProps {
   children: React.ReactNode;
   classes: string;
-  validationSchema: Yup.AnyObjectSchema;
+  validationSchema: AnyObjectSchema;
 }
 
 export interface FormValidationError {
@@ -26,7 +26,7 @@ export const Form: React.FC<FormProps> = ({ children, classes, validationSchema 
   };
 
   const handleErrors = (error: unknown) => {
-    if (error instanceof Yup.ValidationError) {
+    if (error instanceof ValidationError) {
       const errorsObj = error.inner.reduce((errors, error) => {
         if (typeof error.path !== 'undefined') errors[error.path as keyof FormValidationError] = error.message;
         return errors;
