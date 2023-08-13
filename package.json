@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@types/lodash": "^4.14.196",
+    "axios": "^1.4.0",
     "clsx": "^2.0.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
@@ -46,6 +47,6 @@
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
-    "vitest": "^0.25.3"
+    "vitest": "^0.34.1"
   }
 }
