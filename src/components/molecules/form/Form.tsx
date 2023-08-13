@@ -1,19 +1,21 @@
 import React, { useState, createContext } from 'react';
 import { ValidationError, AnyObjectSchema } from 'yup';
 import { omit } from 'lodash';
+import { FormFields } from '@components/molecules';
 
 interface FormProps {
   children: React.ReactNode;
   classes: string;
   validationSchema: AnyObjectSchema;
+  onSubmit: (formData: FormFields) => Promise<void>;
 }
 
 export interface FormValidationError {
   [key: string]: string;
 }
-export const ThemeContext = createContext({});
+export const FormContext = createContext({});
 
-export const Form: React.FC<FormProps> = ({ children, classes, validationSchema }) => {
+export const Form: React.FC<FormProps> = ({ children, classes, validationSchema, onSubmit }) => {
   const [formState, setFormState] = useState<Record<string, string>>({});
   const [formErrors, setFormErrors] = useState({} as FormValidationError);
 
@@ -41,8 +43,10 @@ export const Form: React.FC<FormProps> = ({ children, classes, validationSchema 
       await validationSchema.validate(formState, { abortEarly: false });
       const errorsObj = omit(formErrors, inputName) as FormValidationError;
       setFormErrors(errorsObj);
+      return true;
     } catch (error: unknown) {
       handleErrors(error);
+      return false;
     }
   };
 
@@ -58,16 +62,19 @@ export const Form: React.FC<FormProps> = ({ children, classes, validationSchema 
     return child;
   });
 
-  const submitForm = (event: React.SyntheticEvent<HTMLFormElement>) => {
+  const submitForm = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    validate();
+    const formValidation = await validate();
+    if (formValidation) {
+      onSubmit(formState);
+    }
   };
 
   return (
-    <ThemeContext.Provider value={formErrors}>
+    <FormContext.Provider value={formErrors}>
       <form onSubmit={submitForm} className={classes}>
         {childrenWithProps}
       </form>
-    </ThemeContext.Provider>
+    </FormContext.Provider>
   );
 };

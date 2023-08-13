@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
-import { ThemeContext } from '@components/molecules';
+import { FormContext } from '@components/molecules';
 import clsx from 'clsx';
-import { FormValidationError } from '@components/molecules/Form';
+import { FormValidationError } from '@components/molecules/form/Form';
 
 interface InputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -11,7 +11,7 @@ interface InputProps {
   classes?: Array<string>;
 }
 const Input: React.FC<InputProps> = ({ name, placeholder, onChange, label, classes, ...props }: InputProps) => {
-  const formErrors = useContext(ThemeContext);
+  const formErrors = useContext(FormContext);
   const currentFormErrors = formErrors as FormValidationError;
   const inputError = currentFormErrors[name as keyof FormValidationError];
   const [errorTextClass, setErrorTextClass] = React.useState('');
