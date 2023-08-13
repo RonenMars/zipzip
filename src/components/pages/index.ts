@@ -1,2 +1,2 @@
-import { LoginPhone } from './Login';
+import { LoginPhone } from './login';
 export { LoginPhone };
