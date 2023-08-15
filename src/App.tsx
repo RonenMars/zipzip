@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
-import { Login } from '@components/pages';
+import { LoginPhone } from '@components/pages';
 
 function App() {
   return (
-    <>
-      <Login />
-    </>
+    <div className="w-screen h-screen flex justify-center items-center">
+      <div className="bg-white w-96 rounded-3xl shadow-lg py-8 px-14">
+        <LoginPhone />
+      </div>
+    </div>
   );
 }
 
