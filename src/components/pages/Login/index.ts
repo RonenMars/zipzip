@@ -1,2 +1,2 @@
-import Login from './Main';
-export { Login };
+import LoginPhone from './LoginPhone';
+export { LoginPhone };

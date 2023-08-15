@@ -1,8 +1,12 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import login from './locales/he/login.json';
+import hebrew from './locales/he';
 
-const translations = Object.assign({}, login);
+const hebrewTranslations = Object.keys(hebrew).reduce((acc, key) => {
+  return Object.assign(acc, { ...hebrew[key] });
+}, {});
+
+const translations = Object.assign({}, hebrewTranslations);
 const resources = {
   he: {
     translation: translations,
