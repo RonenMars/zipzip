@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { FormContext } from '@components/molecules';
 import clsx from 'clsx';
 import { FormValidationError } from '@components/molecules/form/Form';
+import { useTranslation } from 'react-i18next';
 
 interface InputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -15,6 +16,7 @@ const Input: React.FC<InputProps> = ({ name, placeholder, onChange, label, class
   const currentFormErrors = formErrors as FormValidationError;
   const inputError = currentFormErrors[name as keyof FormValidationError];
   const [errorTextClass, setErrorTextClass] = React.useState('');
+  const { t } = useTranslation();
 
   const baseClass = [
     'w-full h-12 border border-purple rounded-full placeholder:text-center placeholder:text-base mt-4',
@@ -48,7 +50,7 @@ const Input: React.FC<InputProps> = ({ name, placeholder, onChange, label, class
     <div>
       <label htmlFor={name}>{label}</label>
       <input name={name} onChange={onChange} placeholder={placeholder} {...props} className={inputClass} />
-      {inputError && <div className={errorTextClass}>{inputError}</div>}
+      {inputError && <div className={errorTextClass}>{t(inputError)}</div>}
     </div>
   );
 };
