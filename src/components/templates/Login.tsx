@@ -14,7 +14,6 @@ const Topics = () => {
   return <p>Topics</p>;
 };
 
-import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 const Main = () => {
