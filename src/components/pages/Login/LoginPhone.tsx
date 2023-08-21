@@ -6,6 +6,27 @@ import buttonDesignTypes from '@components/atoms/Button/ButtonEnums';
 import API from '@api/index';
 import { LoginPhoneSchema } from '@validations/user/login/phone.schema';
 
+/**
+ * A React component representing a login form.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered login form component.
+ *
+ * @example
+ * import React from 'react';
+ * import Login from './LoginComponent';
+ *
+ * const LoginPage = () => {
+ *   return (
+ *     <div>
+ *       <Login />
+ *     </div>
+ *   );
+ * };
+ *
+ * export default LoginPage;
+ */
+
 const Login: React.FC = () => {
   const { t } = useTranslation();
 

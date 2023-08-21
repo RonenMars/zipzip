@@ -11,6 +11,44 @@ interface InputProps {
   label: string;
   classes?: Array<string>;
 }
+
+/**
+ * A customizable input field component for use in React forms.
+ *
+ * @component
+ * @param {Object} props - The component's properties.
+ * @param {string} props.name - The name attribute for the input field.
+ * @param {string} props.placeholder - The placeholder text for the input field.
+ * @param {string} props.label - The label text associated with the input field.
+ * @param {Array<string>} [props.classes] - Additional CSS classes to apply to the input field.
+ * @param {function} [props.onChange] - A callback function to execute when the input value changes.
+ * @returns {JSX.Element} The rendered input field component.
+ *
+ * @example
+ * import React from 'react';
+ * import Input from './InputComponent';
+ *
+ * const MyForm = () => {
+ *   const handleChange = (event) => {
+ *     ** Handle input change here, e.g., update form state. **
+ *   };
+ *
+ *   return (
+ *     <form>
+ *       <Input
+ *         name="username"
+ *         placeholder="Enter your username"
+ *         label="Username"
+ *         onChange={handleChange}
+ *         classes={['custom-class']}
+ *       />
+ *     </form>
+ *   );
+ * };
+ *
+ * export default MyForm;
+ */
+
 const Input: React.FC<InputProps> = ({ name, placeholder, onChange, label, classes, ...props }: InputProps) => {
   const formErrors = useContext(FormContext);
   const currentFormErrors = formErrors as FormValidationError;
