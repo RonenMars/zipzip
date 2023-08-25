@@ -10,6 +10,12 @@ module.exports = {
     'eslint-config-prettier',
   ],
   settings: {
+    react: {
+      version: 'detect',
+    },
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
     'import/resolver': {
       alias: {
         map: [
@@ -19,18 +25,6 @@ module.exports = {
           ['@validations', './src/validations'],
         ],
       },
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        moduleDirectory: ['src', 'node_modules'],
-      },
-    },
-    react: {
-      version: 'detect',
-    },
-    'import/parsers': {
-      '@typescript-eslint/parser': ['.ts', '.tsx'],
-    },
-    'import/resolver': {
       node: {
         paths: ['src'],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
