@@ -35,20 +35,16 @@ const Login: React.FC = (): ReactNode => {
   const navigate = useNavigate();
 
   const handleFormSubmit = async (phoneNumber: FormFields) => {
-    const { phoneNumber: userPhone } = phoneNumber;
+    const { phone: userPhone } = phoneNumber;
     try {
       const response = await API.get(`/account/${userPhone}`);
       const { userId } = response.data;
-      console.log('userId', userId);
       if (userId || userId === 0) {
         navigate('/otp');
-      } else {
-
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.log(error.status);
-        console.error(error.response);
+        console.error(error);
         // Do something with this error...
       } else {
         console.error(error);

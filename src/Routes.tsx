@@ -1,7 +1,6 @@
 import React from 'react';
-import LoginPhone from '@components/pages/login/LoginPhone.tsx';
+import { Login, OTP } from '@components/pages/login';
 import { createBrowserRouter } from 'react-router-dom';
-import OTP from '@components/pages/login/OTP.tsx';
 export const router = createBrowserRouter([
   // {
   //   path: 'app',
@@ -12,6 +11,6 @@ export const router = createBrowserRouter([
   //     { path: 'other', element: <OtherComponent /> },
   //   ],
   // },
-  { element: <LoginPhone />, path: '/' },
+  { element: <Login />, path: '/' },
   { element: <OTP />, path: '/otp' },
 ]);
