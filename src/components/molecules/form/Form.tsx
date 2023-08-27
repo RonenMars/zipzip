@@ -16,6 +16,38 @@ export interface FormValidationError {
 
 export const FormContext = createContext({});
 
+/**
+ * A reusable form component for handling form state, validation, and submission.
+ *
+ * @component
+ * @param {Object} props - The component's properties.
+ * @param {React.ReactNode} props.children - The content to render within the form.
+ * @param {string} props.classes - Additional CSS classes to apply to the form.
+ * @param {AnySchema} props.validationSchema - The Joi schema used for form validation.
+ * @param {function} props.onSubmit - A callback function to execute when the form is submitted successfully.
+ * @returns {JSX.Element} The rendered form component.
+ *
+ * @example
+ * import React from 'react';
+ * import { Form } from './your-form-component';
+ *
+ * const MyForm = () => {
+ *   const handleSubmit = async (formData) => {
+ *     console.log('Form submitted with data:', formData);
+ *   };
+ *
+ *   return (
+ *     <Form validationSchema={validationSchema} onSubmit={handleSubmit} classes="my-form">
+ *       <input type="text" name="name" placeholder="Name" />
+ *       <input type="text" name="email" placeholder="Email" />
+ *       <button type="submit">Submit</button>
+ *     </Form>
+ *   );
+ * };
+ *
+ * export default MyForm;
+ */
+
 export const Form: React.FC<FormProps> = ({ children, classes, validationSchema, onSubmit }) => {
   const [formState, setFormState] = useState<Record<string, string>>({});
   const [formErrors, setFormErrors] = useState({});
@@ -31,7 +63,6 @@ export const Form: React.FC<FormProps> = ({ children, classes, validationSchema,
   function validationField(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     const validationResult = validationSchema.extract(name).validate(value);
-    console.log('validationResult', validationResult);
     const errorsList: Record<string, string> = {};
     if (validationResult.error) {
       validationResult.error.details.forEach((error) => {
@@ -60,19 +91,20 @@ export const Form: React.FC<FormProps> = ({ children, classes, validationSchema,
   };
 
   const validate = async () => {
-    const validationErrors = await validationSchema.validate(formState, { abortEarly: false });
+    const validationErrors = validationSchema.validate(formState, { abortEarly: false });
     const formErrors = handleErrors(validationErrors);
     return !!Object.keys(formErrors).length;
   };
 
   const childrenWithProps = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
-      const onChange = {
-        onChange: handleInputChange,
-        onBlur: validationField,
-      };
-
-      return React.cloneElement(child, onChange);
+      if (child.props.type !== 'submit') {
+        const onChange = {
+          onChange: handleInputChange,
+          onBlur: validationField,
+        };
+        return React.cloneElement(child, onChange);
+      }
     }
     return child;
   });
