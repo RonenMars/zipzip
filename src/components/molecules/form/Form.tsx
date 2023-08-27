@@ -1,23 +1,24 @@
 import React, { useState, createContext } from 'react';
-import { ValidationError, AnyObjectSchema } from 'yup';
 import { omit } from 'lodash';
 import { FormFields } from '@components/molecules';
+import { AnySchema, ValidationResult } from 'joi';
 
 interface FormProps {
   children: React.ReactNode;
   classes: string;
-  validationSchema: AnyObjectSchema;
+  validationSchema: AnySchema;
   onSubmit: (formData: FormFields) => Promise<void>;
 }
 
 export interface FormValidationError {
   [key: string]: string;
 }
+
 export const FormContext = createContext({});
 
 export const Form: React.FC<FormProps> = ({ children, classes, validationSchema, onSubmit }) => {
   const [formState, setFormState] = useState<Record<string, string>>({});
-  const [formErrors, setFormErrors] = useState({} as FormValidationError);
+  const [formErrors, setFormErrors] = useState({});
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -27,34 +28,48 @@ export const Form: React.FC<FormProps> = ({ children, classes, validationSchema,
     });
   };
 
-  const handleErrors = (error: unknown) => {
-    if (error instanceof ValidationError) {
-      const errorsObj = error.inner.reduce((errors, error) => {
-        if (typeof error.path !== 'undefined') errors[error.path as keyof FormValidationError] = error.message;
-        return errors;
-      }, {} as FormValidationError);
+  function validationField(event: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = event.target;
+    const validationResult = validationSchema.extract(name).validate(value);
+    console.log('validationResult', validationResult);
+    const errorsList: Record<string, string> = {};
+    if (validationResult.error) {
+      validationResult.error.details.forEach((error) => {
+        errorsList[name] = error.message;
+      });
+      setFormErrors({
+        ...formErrors,
+        ...errorsList,
+      });
+    } else {
+      const errorsObj = omit(formErrors, name) as FormValidationError;
       setFormErrors(errorsObj);
     }
+  }
+
+  const handleErrors = (error: ValidationResult) => {
+    const errorsObj =
+      error?.error?.details.reduce((errors, currentError) => {
+        const fieldName = currentError.path.toString();
+        if (typeof currentError.path !== 'undefined') errors[fieldName] = currentError.message;
+        return errors;
+      }, {} as FormValidationError) || ({} as FormValidationError);
+
+    setFormErrors(errorsObj);
+    return errorsObj;
   };
 
-  const validate = async (event?: React.ChangeEvent<HTMLInputElement>) => {
-    try {
-      const inputName: string = event?.target.name as string;
-      await validationSchema.validate(formState, { abortEarly: false });
-      const errorsObj = omit(formErrors, inputName) as FormValidationError;
-      setFormErrors(errorsObj);
-      return true;
-    } catch (error: unknown) {
-      handleErrors(error);
-      return false;
-    }
+  const validate = async () => {
+    const validationErrors = await validationSchema.validate(formState, { abortEarly: false });
+    const formErrors = handleErrors(validationErrors);
+    return !!Object.keys(formErrors).length;
   };
 
   const childrenWithProps = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
       const onChange = {
         onChange: handleInputChange,
-        onBlur: validate,
+        onBlur: validationField,
       };
 
       return React.cloneElement(child, onChange);
@@ -64,8 +79,8 @@ export const Form: React.FC<FormProps> = ({ children, classes, validationSchema,
 
   const submitForm = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formValidation = await validate();
-    if (formValidation) {
+    const formValidationErrors = await validate();
+    if (!formValidationErrors) {
       onSubmit(formState);
     }
   };

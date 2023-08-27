@@ -16,6 +16,7 @@ module.exports = {
           ['@', './src'],
           ['@components', './src/components'],
           ['@api', './src/api'],
+          ['@validations', './src/validations'],
         ],
       },
       node: {
