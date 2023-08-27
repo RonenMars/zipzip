@@ -1,2 +1,2 @@
-import LoginPhone from './LoginPhone';
+import LoginPhone from './LoginPhone.tsx';
 export { LoginPhone };
