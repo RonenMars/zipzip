@@ -1,5 +1,5 @@
 import React from 'react';
-import { Login, OTP } from '@components/pages/login';
+import { Phone, OTP } from '@components/pages/login';
 import { createBrowserRouter } from 'react-router-dom';
 export const router = createBrowserRouter([
   // {
@@ -11,6 +11,6 @@ export const router = createBrowserRouter([
   //     { path: 'other', element: <OtherComponent /> },
   //   ],
   // },
-  { element: <Login />, path: '/' },
+  { element: <Phone />, path: '/' },
   { element: <OTP />, path: '/otp' },
 ]);

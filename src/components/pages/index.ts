@@ -1,2 +1,2 @@
-import { LoginPhone } from './login';
-export { LoginPhone };
+import { Phone } from '@components/pages/login';
+export { Phone };
