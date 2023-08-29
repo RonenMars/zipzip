@@ -1,3 +1,3 @@
-import Login from '@components/pages/Login/Phone.tsx';
-import OTP from '@components/pages/Login/OTP.tsx';
-export { Login, OTP };
+import Phone from '@components/pages/login/Phone';
+import OTP from '@components/pages/login/OTP';
+export { Phone, OTP };

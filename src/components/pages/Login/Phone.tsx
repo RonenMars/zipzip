@@ -30,7 +30,7 @@ import { useNavigate } from 'react-router-dom';
  * export default LoginPage;
  */
 
-const Login: React.FC = (): ReactNode => {
+const Phone: React.FC = (): ReactNode => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -71,4 +71,4 @@ const Login: React.FC = (): ReactNode => {
   );
 };
 
-export default Login;
+export default Phone;
