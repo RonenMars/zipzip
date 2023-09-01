@@ -1,18 +1,8 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import { omit } from 'lodash';
-import { FormFields } from '@components/molecules';
-import { AnySchema, ValidationResult } from 'joi';
-
-interface FormProps {
-  children: React.ReactNode;
-  classes: string;
-  validationSchema: AnySchema;
-  onSubmit: (formData: FormFields) => Promise<void>;
-}
-
-export interface FormValidationError {
-  [key: string]: string;
-}
+import { ValidationResult } from 'joi';
+import FormError from '@components/atoms/formError/FormError';
+import { FormProps, FormValidationError, ServerError } from '@components/molecules';
 
 export const FormContext = createContext({});
 
@@ -47,13 +37,29 @@ export const FormContext = createContext({});
  *
  * export default MyForm;
  */
-
-export const Form: React.FC<FormProps> = ({ children, classes, validationSchema, onSubmit }) => {
+export const Form: React.FC<FormProps> = ({ children, classes, validationSchema, onSubmit, serverErrors }) => {
   const [formState, setFormState] = useState<Record<string, string>>({});
   const [formErrors, setFormErrors] = useState({});
+  const [globalError, setGlobalError] = useState('');
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+  useEffect(() => {
+    if (Array.isArray(serverErrors)) {
+      for (let i = 0; i < serverErrors.length; i++) {
+        const serverError = serverErrors[i] as ServerError;
+        if (serverError.name === 'global') {
+          setGlobalError(serverError.message);
+        } else {
+          setFormErrors({
+            ...formErrors,
+            ...{ [serverError.name]: serverError.message },
+          });
+        }
+      }
+    }
+  }, [formErrors, serverErrors]);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement> | string) => {
+    const { name, value } = (event as React.ChangeEvent<HTMLInputElement>).target;
     setFormState({
       ...formState,
       [name]: value,
@@ -61,6 +67,7 @@ export const Form: React.FC<FormProps> = ({ children, classes, validationSchema,
   };
 
   function validationField(event: React.ChangeEvent<HTMLInputElement>) {
+    setGlobalError('');
     const { name, value } = event.target;
     const validationResult = validationSchema.extract(name).validate(value);
     const errorsList: Record<string, string> = {};
@@ -68,6 +75,7 @@ export const Form: React.FC<FormProps> = ({ children, classes, validationSchema,
       validationResult.error.details.forEach((error) => {
         errorsList[name] = error.message;
       });
+
       setFormErrors({
         ...formErrors,
         ...errorsList,
@@ -120,6 +128,7 @@ export const Form: React.FC<FormProps> = ({ children, classes, validationSchema,
   return (
     <FormContext.Provider value={formErrors}>
       <form onSubmit={submitForm} className={classes}>
+        <FormError error={globalError} />
         {childrenWithProps}
       </form>
     </FormContext.Provider>

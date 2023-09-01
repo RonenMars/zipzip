@@ -1,4 +1,10 @@
 import { Form, FormContext } from '@components/molecules/form/Form';
-import { FormFields } from '@components/molecules/form/interface/FormField';
+import {
+  FormFields,
+  FormProps,
+  FormValidationError,
+  ServerError,
+} from '@components/molecules/form/interface/FormInterface';
+
 export { Form, FormContext };
-export type { FormFields };
+export type { FormFields, ServerError, FormProps, FormValidationError };
