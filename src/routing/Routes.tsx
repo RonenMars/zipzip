@@ -1,6 +1,8 @@
 import React from 'react';
 import { Phone, OTP } from '@components/pages/login';
 import { createBrowserRouter } from 'react-router-dom';
+import { ProtectedLoginRoute } from './Protected/ProtectedLoginRoute';
+
 export const router = createBrowserRouter([
   // {
   //   path: 'app',
@@ -12,5 +14,13 @@ export const router = createBrowserRouter([
   //   ],
   // },
   { element: <Phone />, path: '/' },
-  { element: <OTP />, path: '/otp' },
+  {
+    element: (
+      <ProtectedLoginRoute>
+        <OTP />
+      </ProtectedLoginRoute>
+    ),
+    path: '/otp',
+  },
+  { element: <p>There&apos;s nothing here: 404!</p>, path: '*' },
 ]);

@@ -1,3 +1,3 @@
-import Input from './Input';
-import Button from './Button/Button';
+import Input from '@components/atoms/input/Input';
+import Button from '@components/atoms/button/Button';
 export { Input, Button };
