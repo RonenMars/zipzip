@@ -1,7 +1,6 @@
 import React from 'react';
 
-export interface ProtectedLoginRouteProps {
+export interface ProtectedLoginRouteInterface {
   children: React.ReactNode;
-  identificator: boolean;
   redirectPath?: string;
 }

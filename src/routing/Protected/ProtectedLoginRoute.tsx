@@ -1,9 +1,9 @@
 import { Navigate } from 'react-router-dom';
 import React, { ReactNode } from 'react';
 import { PersistentStorage } from '@utils/localStorage/localStorage';
-import { ProtectedLoginRouteProps } from './interface/ProtectedInterface';
+import { ProtectedLoginRouteInterface } from './interface/ProtectedInterface';
 
-export const ProtectedLoginRoute: React.FC<ProtectedLoginRouteProps> = ({
+export const ProtectedLoginRoute: React.FC<ProtectedLoginRouteInterface> = ({
   children,
   redirectPath = '/',
 }): ReactNode => {
