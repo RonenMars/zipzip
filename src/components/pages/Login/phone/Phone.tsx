@@ -32,7 +32,7 @@ import { singleError } from '@components/pages/login/phone/interface/PhoneInterf
  * export default LoginPage;
  */
 
-const Phone: React.FC = (): ReactNode => {
+export const Phone: React.FC = (): ReactNode => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [errors, setErrors] = useState<Array<singleError>>([]);
@@ -87,5 +87,3 @@ const Phone: React.FC = (): ReactNode => {
     </LoginWrapper>
   );
 };
-
-export default Phone;
