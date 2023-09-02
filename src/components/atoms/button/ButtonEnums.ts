@@ -14,6 +14,6 @@
  */
 
 export enum ButtonDesignTypes {
-  Button,
-  Link,
+  Button = 'button',
+  Link = 'link',
 }
