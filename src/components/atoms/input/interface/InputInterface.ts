@@ -1,9 +1,6 @@
-import React from 'react';
+import { InputHTMLAttributes } from 'react';
 
-export interface InputProps {
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  name: string;
-  placeholder: string;
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   classes?: Array<string>;
 }

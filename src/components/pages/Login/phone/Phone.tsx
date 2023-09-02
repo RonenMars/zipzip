@@ -68,7 +68,13 @@ const Phone: React.FC = (): ReactNode => {
       <div className="flex justify-center flex-col">
         <h1 className="text-center">{t('enter')}</h1>
         <Form classes="pt-4" validationSchema={LoginPhoneSchema} onSubmit={handleFormSubmit} serverErrors={errors}>
-          <Input name="phone" placeholder={t('demoPhoneNumber')} label={t('phoneNumber')} classes={['text-center']} />{' '}
+          <Input
+            name="phone"
+            placeholder={t('demoPhoneNumber')}
+            label={t('phoneNumber')}
+            classes={['text-center']}
+            dir="ltr"
+          />
           <Button type="submit" classes={['mt-4']}>
             {t('enter')}
           </Button>
