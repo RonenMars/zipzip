@@ -7,11 +7,14 @@ import API from '@api/index';
 import axios from 'axios';
 import { PersistentStorage } from '@utils/localStorage/localStorage';
 import FormError from '@components/atoms/formError/FormError';
+import { useDispatch } from 'react-redux';
+import { setUser } from '@redux/UserReducer';
 
-const OTP: React.FC = (): ReactNode => {
+export const OTP: React.FC = (): ReactNode => {
   const { t } = useTranslation();
   const userPhone = PersistentStorage.getItem('userPhone');
   const [serverError, setServerError] = useState('');
+  const dispatch = useDispatch();
 
   const [otp, setOtp] = useState('');
   const onChange = async (value: string) => {
@@ -22,8 +25,12 @@ const OTP: React.FC = (): ReactNode => {
           phone: userPhone,
           validationCode: value,
         });
-        const { data } = response.data;
-        console.log('data', data);
+
+        const {
+          data: { name, email, phone },
+        } = response;
+
+        dispatch(setUser({ name, email, phone }));
       } catch (error) {
         if (axios.isAxiosError(error)) {
           if (!error.response) {
@@ -47,5 +54,3 @@ const OTP: React.FC = (): ReactNode => {
     </LoginWrapper>
   );
 };
-
-export default OTP;

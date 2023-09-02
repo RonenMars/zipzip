@@ -41,14 +41,9 @@ import { InputProps } from '@components/atoms/input/interface/InputInterface';
  * export default MyForm;
  */
 
-const Input: React.FC<InputProps> = ({
-  name,
-  placeholder,
-  onChange,
-  label,
-  classes,
-  ...props
-}: InputProps): JSX.Element => {
+const Input: React.FC<InputProps> = ({ classes, ...props }: InputProps): JSX.Element => {
+  const { name, label } = props;
+
   const formErrors = useContext(FormContext);
 
   const currentFormErrors = formErrors as FormValidationError;
@@ -85,7 +80,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <div>
       <label htmlFor={name}>{label}</label>
-      <input name={name} onChange={onChange} placeholder={placeholder} {...props} className={inputClass} />
+      <input className={inputClass} {...props} />
       {inputError && <div className={errorTextClass}>{t(inputError)}</div>}
     </div>
   );
