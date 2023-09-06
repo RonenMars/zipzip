@@ -35,7 +35,7 @@ const OTPInput = ({ value, valueLength = 1, onChange, isError }: Props): ReactNo
     }
 
     return items;
-  }, [value, valueLength]);
+  }, [value]);
 
   const inputOnChange = (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
     const target = e.target;

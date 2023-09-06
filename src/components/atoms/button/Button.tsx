@@ -4,32 +4,15 @@ import clsx from 'clsx';
 import { ButtonProps } from '@components/atoms/button/interface/ButtonsInterface';
 
 /**
- * A customizable button component for use in React applications.
+ * Button component for creating customizable buttons or links with different designs.
  *
- * @component
- * @param {Object} props - The component's properties.
- * @param {React.ReactNode} props.children - The content to display within the button.
- * @param {Array<string>} [props.classes] - Additional CSS classes to apply to the button.
- * @param {ButtonDesignTypes} [props.design] - The design style of the button.
- * @param {React.ButtonHTMLAttributes<HTMLButtonElement>} props - Additional HTML button attributes.
- * @param {React.AriaAttributes} props - ARIA attributes for accessibility.
- * @returns {JSX.Element} The rendered button component.
+ * @param {Object} props - The props object containing the following properties:
+ * @param {ButtonDesignTypes} [props.design=ButtonDesignTypes.Button] - The design type of the button, either "Button" or "Link".
+ * @param {string} [props.children] - The content to display within the button.
+ * @param {string} [props.classes] - Additional CSS classes to apply to the button.
+ * @param {...any} [props.rest] - Any other props to be spread onto the underlying HTML button element.
  *
- * @example
- * import React from 'react';
- * import Button, { ButtonDesignTypes } from './ButtonComponent';
- *
- * const MyComponent = () => {
- *   return (
- *     <div>
- *       <Button>Default Button</Button>
- *       <Button design={ButtonDesignTypes.Link}>Link Button</Button>
- *       <Button classes={['custom-class']}>Custom Button</Button>
- *     </div>
- *   );
- * };
- *
- * export default MyComponent;
+ * @returns {JSX.Element} The rendered Button component.
  */
 
 const Button = ({ design = ButtonDesignTypes.Button, ...props }: ButtonProps) => {
