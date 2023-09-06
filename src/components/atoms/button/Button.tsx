@@ -11,8 +11,6 @@ import { ButtonProps } from '@components/atoms/button/interface/ButtonsInterface
  * @param {string} [props.children] - The content to display within the button.
  * @param {string} [props.classes] - Additional CSS classes to apply to the button.
  * @param {...any} [props.rest] - Any other props to be spread onto the underlying HTML button element.
- *
- * @returns {JSX.Element} The rendered Button component.
  */
 
 const Button = ({ design = ButtonDesignTypes.Button, ...props }: ButtonProps) => {

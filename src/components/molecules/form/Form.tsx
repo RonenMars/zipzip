@@ -1,8 +1,8 @@
 import React, { useState, createContext, useEffect } from 'react';
 import { omit } from 'lodash';
-import { ValidationResult } from 'joi';
+import { AnySchema, ValidationResult } from 'joi';
 import FormError from '@components/atoms/formError/FormError';
-import { FormProps, FormValidationError, ServerError } from '@components/molecules';
+import { FormValidationError, ServerError } from '@components/molecules';
 
 export const FormContext = createContext({});
 
@@ -15,7 +15,6 @@ export const FormContext = createContext({});
  * @param {string} props.classes - Additional CSS classes to apply to the form.
  * @param {AnySchema} props.validationSchema - The Joi schema used for form validation.
  * @param {function} props.onSubmit - A callback function to execute when the form is submitted successfully.
- * @returns {JSX.Element} The rendered form component.
  *
  * @example
  * import React from 'react';
@@ -37,7 +36,19 @@ export const FormContext = createContext({});
  *
  * export default MyForm;
  */
-export const Form: React.FC<FormProps> = ({ children, classes, validationSchema, onSubmit, serverErrors }) => {
+export const Form = ({
+  children,
+  classes,
+  validationSchema,
+  onSubmit,
+  serverErrors,
+}: {
+  children: React.ReactNode;
+  classes?: string;
+  validationSchema: AnySchema;
+  onSubmit: Function;
+  serverErrors?: string | Array<ServerError>;
+}) => {
   const [formState, setFormState] = useState<Record<string, string>>({});
   const [formErrors, setFormErrors] = useState({});
   const [globalError, setGlobalError] = useState('');
@@ -45,7 +56,7 @@ export const Form: React.FC<FormProps> = ({ children, classes, validationSchema,
   useEffect(() => {
     if (Array.isArray(serverErrors)) {
       for (let i = 0; i < serverErrors.length; i++) {
-        const serverError = serverErrors[i] as ServerError;
+        const serverError = serverErrors[i];
         if (serverError.name === 'global') {
           setGlobalError(serverError.message);
         } else {

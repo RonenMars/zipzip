@@ -9,11 +9,7 @@ import { InputProps } from '@components/atoms/input/interface/InputInterface';
  *
  * @component
  * @param {Object} props - The component's properties.
- * @param {string} props.name - The name attribute for the input field.
- * @param {string} props.placeholder - The placeholder text for the input field.
- * @param {string} props.label - The label text associated with the input field.
  * @param {Array<string>} [props.classes] - Additional CSS classes to apply to the input field.
- * @param {function} [props.onChange] - A callback function to execute when the input value changes.
  * @returns {JSX.Element} The rendered input field component.
  *
  * @example
@@ -33,6 +29,7 @@ import { InputProps } from '@components/atoms/input/interface/InputInterface';
  *         label="Username"
  *         onChange={handleChange}
  *         classes={['custom-class']}
+ *         dir="ltr"
  *       />
  *     </form>
  *   );

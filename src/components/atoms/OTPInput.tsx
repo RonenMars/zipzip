@@ -10,6 +10,18 @@ type Props = {
   onChange: (value: string) => void;
   isError: boolean;
 };
+
+/**
+ * OTPInput component for rendering an OTP input form with validation and navigation.
+ *
+ * @param {Object} props - The props object containing the following properties:
+ * @param {string} props.value - The current OTP value.
+ * @param {number} [props.valueLength=1] - The expected length of the OTP.
+ * @param {(value: string) => void} props.onChange - A callback function to handle OTP value changes.
+ * @param {boolean} props.isError - Indicates if there is an error in the OTP input.
+ *
+ * @returns {ReactNode} The rendered OTPInput component.
+ */
 const OTPInput = ({ value, valueLength = 1, onChange, isError }: Props): ReactNode => {
   const baseClass = useMemo(() => ['w-full h-16 border border-purple-300 text-center font-bold rounded-lg'], []);
 
