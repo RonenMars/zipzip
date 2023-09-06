@@ -9,7 +9,10 @@ import LoginWrapper from '@components/templates/LoginWrapper';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PersistentStorage } from '@utils/localStorage/localStorage';
-import { singleError } from '@components/pages/login/phone/interface/PhoneInterface';
+import { singleError } from '@components/pages/Login/phone/interface/PhoneInterface.ts';
+import { setLoader } from '@redux/LoaderReducer.ts';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@redux/index.ts';
 
 /**
  * A React component representing a login form.
@@ -36,11 +39,17 @@ export const Phone: React.FC = (): ReactNode => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [errors, setErrors] = useState<Array<singleError>>([]);
+  const dispatch = useDispatch();
+  const loaderState = useSelector((state: RootState) => state.loader.loading);
+
   const handleFormSubmit = async (phoneNumber: FormFields) => {
     const { phone: userPhone } = phoneNumber;
+    dispatch(setLoader({ loading: true }));
+
     try {
       await API.get(`/account/${userPhone}`);
       PersistentStorage.setItem('userPhone', userPhone);
+      dispatch(setLoader({ loading: false }));
       navigate('/otp');
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -60,6 +69,7 @@ export const Phone: React.FC = (): ReactNode => {
       } else {
         console.error(error);
       }
+      dispatch(setLoader({ loading: false }));
     }
   };
 
@@ -74,8 +84,9 @@ export const Phone: React.FC = (): ReactNode => {
             label={t('phoneNumber')}
             classes={['text-center']}
             dir="ltr"
+            disabled={loaderState}
           />
-          <Button type="submit" classes={['mt-4']}>
+          <Button type="submit" classes={['mt-4']} disabled={loaderState}>
             {t('enter')}
           </Button>
         </Form>
