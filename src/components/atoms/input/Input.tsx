@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo, ReactElement } from 'react';
 import { FormContext, FormValidationError } from '@components/molecules';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +10,7 @@ import { InputProps } from '@components/atoms/input/interface/InputInterface';
  * @component
  * @param {Object} props - The component's properties.
  * @param {Array<string>} [props.classes] - Additional CSS classes to apply to the input field.
- * @returns {JSX.Element} The rendered input field component.
+ * @returns {React.ReactElement} The rendered input field component.
  *
  * @example
  * import React from 'react';
@@ -38,7 +38,7 @@ import { InputProps } from '@components/atoms/input/interface/InputInterface';
  * export default MyForm;
  */
 
-const Input: React.FC<InputProps> = ({ classes, ...props }: InputProps): JSX.Element => {
+const Input: React.FC<InputProps> = ({ classes, ...props }: InputProps): ReactElement => {
   const { name, label } = props;
 
   const formErrors = useContext(FormContext);

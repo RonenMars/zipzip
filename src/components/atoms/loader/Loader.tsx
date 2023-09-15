@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement, FC } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/index.ts';
 import Lottie from 'lottie-react';
@@ -6,9 +6,9 @@ import { loaderAnimation } from '@assets/lottie-animations';
 /**
  * Loader component for displaying a loading overlay.
  *
- * @returns {JSX.Element} The rendered Loader component, which displays an overlay when loading is in progress.
+ * @returns {React.ReactElement} The rendered Loader component, which displays an overlay when loading is in progress.
  */
-const Loader: React.FC = () => {
+const Loader: FC = (): ReactElement => {
   /**
    * The loading state retrieved from the Redux store.
    * @type {boolean}
