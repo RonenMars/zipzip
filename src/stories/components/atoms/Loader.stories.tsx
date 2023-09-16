@@ -43,7 +43,7 @@ export const Default = {
     ),
   ],
 };
-export const WithBackground = {
+export const VisibleOverlay = {
   decorators: [
     (Story: StoryFn) => (
       <Mockstore loaderState={MockedState}>
