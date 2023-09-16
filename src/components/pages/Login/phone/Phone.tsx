@@ -9,7 +9,7 @@ import LoginWrapper from '@components/templates/LoginWrapper';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PersistentStorage } from '@utils/localStorage/localStorage';
-import { singleError } from '@components/pages/Login/phone/interface/PhoneInterface.ts';
+import { singleError } from '@components/pages/login/phone/interface/PhoneInterface.ts';
 import { setLoader } from '@redux/LoaderReducer.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@redux/index.ts';
