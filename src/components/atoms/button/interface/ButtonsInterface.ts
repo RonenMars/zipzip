@@ -7,4 +7,6 @@ export interface ButtonProps
   children: React.ReactNode;
   classes?: Array<string>;
   design?: ButtonDesignTypes;
+  inverse?: boolean;
+  fill?: boolean;
 }

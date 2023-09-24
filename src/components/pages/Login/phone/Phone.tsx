@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { ButtonDesignTypes } from '@components/atoms/button/ButtonEnums';
 import API from '@api/index';
 import { LoginPhoneSchema } from '@validations/user/login/phone.schema';
-import LoginWrapper from '@components/templates/LoginWrapper';
+import { AppWrapper } from '@components/templates';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PersistentStorage } from '@utils/localStorage/localStorage';
@@ -41,7 +41,6 @@ export const Phone: React.FC = (): ReactNode => {
   const [errors, setErrors] = useState<Array<singleError>>([]);
   const dispatch = useDispatch();
   const loaderState = useSelector((state: RootState) => state.loader.loading);
-
   const handleFormSubmit = async (phoneNumber: FormFields) => {
     const { phone: userPhone } = phoneNumber;
     dispatch(setLoader({ loading: true }));
@@ -74,7 +73,7 @@ export const Phone: React.FC = (): ReactNode => {
   };
 
   return (
-    <LoginWrapper>
+    <AppWrapper>
       <div className="flex justify-center flex-col">
         <h1 className="text-center">{t('enter')}</h1>
         <Form classes="pt-4" onSubmit={handleFormSubmit} serverErrors={errors} validationSchema={LoginPhoneSchema}>
@@ -86,15 +85,17 @@ export const Phone: React.FC = (): ReactNode => {
             name="phone"
             placeholder={t('demoPhoneNumber')}
           />
-          <Button classes={['mt-4']} disabled={loaderState} type="submit">
+          <Button classes={['mt-4', 'w-full']} disabled={loaderState} type="submit">
             {t('enter')}
           </Button>
         </Form>
         <div className="text-center">
           <h2 className="mt-4">{t('loginRegisterTitle')}</h2>
-          <Button design={ButtonDesignTypes.Link}>{t('registerNow')}</Button>
+          <Button design={ButtonDesignTypes.Link} classes={['w-full']}>
+            {t('registerNow')}
+          </Button>
         </div>
       </div>
-    </LoginWrapper>
+    </AppWrapper>
   );
 };
