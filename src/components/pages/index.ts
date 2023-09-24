@@ -1,2 +1,3 @@
 import { Phone } from '@components/pages/login';
-export { Phone };
+import { Home } from '@components/pages/Home.tsx';
+export { Phone, Home };

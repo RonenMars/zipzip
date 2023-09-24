@@ -26,7 +26,8 @@
       "@api/*": ["./src/api/*"],
       "@validations/*": ["./src/validations/*"],
       "@utils/*": ["./src/utils/*"],
-      "@redux/*": ["./src/redux/*"]
+      "@redux/*": ["./src/redux/*"],
+      "@routing/*": ["./src/routing/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "setupTests.ts", "tests/**/*.tsx"],

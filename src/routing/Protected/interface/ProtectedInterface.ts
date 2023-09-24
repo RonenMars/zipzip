@@ -1,6 +1,6 @@
 import React from 'react';
 
-export interface ProtectedLoginRouteInterface {
+export interface ProtectedRouteInterface {
   children: React.ReactNode;
   redirectPath?: string;
 }

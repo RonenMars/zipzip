@@ -1,24 +1,29 @@
 import React from 'react';
 import { Phone, Otp } from '@components/pages/login';
 import { createBrowserRouter } from 'react-router-dom';
-import { ProtectedLoginRoute } from './Protected/ProtectedLoginRoute';
+import { LoginProtectedRoute, AppProtectedRoute } from './Protected';
+import { Home } from '@components/pages';
 
 export const router = createBrowserRouter([
-  // {
-  //   path: 'app',
-  //   element: isLoggedIn ? <HomeComponent /> : <Navigate to="/login" />,
-  //   children: [
-  //     { index: true, element: <Navigate to="dashboard" /> },
-  //     { path: 'dashboard', element: <DashboardComponent /> },
-  //     { path: 'other', element: <OtherComponent /> },
-  //   ],
-  // },
+  {
+    path: 'app',
+    element: (
+      <AppProtectedRoute>
+        <Home />
+      </AppProtectedRoute>
+    ),
+    //   children: [
+    //     { index: true, element: <Navigate to="dashboard" /> },
+    //     { path: 'dashboard', element: <DashboardComponent /> },
+    //     { path: 'other', element: <OtherComponent /> },
+    //   ],
+  },
   { element: <Phone />, path: '/' },
   {
     element: (
-      <ProtectedLoginRoute>
+      <LoginProtectedRoute>
         <Otp />
-      </ProtectedLoginRoute>
+      </LoginProtectedRoute>
     ),
     path: '/otp',
   },

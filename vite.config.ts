@@ -12,6 +12,7 @@ export default defineConfig({
       '@utils': path.resolve(__dirname, './src/utils'),
       '@validations': path.resolve(__dirname, './src/validations'),
       '@redux': path.resolve(__dirname, './src/redux'),
+      '@routing': path.resolve(__dirname, './src/routing'),
     },
   },
   plugins: [react()],
