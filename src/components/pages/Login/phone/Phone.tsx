@@ -77,16 +77,16 @@ export const Phone: React.FC = (): ReactNode => {
     <LoginWrapper>
       <div className="flex justify-center flex-col">
         <h1 className="text-center">{t('enter')}</h1>
-        <Form classes="pt-4" validationSchema={LoginPhoneSchema} onSubmit={handleFormSubmit} serverErrors={errors}>
+        <Form classes="pt-4" onSubmit={handleFormSubmit} serverErrors={errors} validationSchema={LoginPhoneSchema}>
           <Input
-            name="phone"
-            placeholder={t('demoPhoneNumber')}
-            label={t('phoneNumber')}
             classes={['text-center']}
             dir="ltr"
             disabled={loaderState}
+            label={t('phoneNumber')}
+            name="phone"
+            placeholder={t('demoPhoneNumber')}
           />
-          <Button type="submit" classes={['mt-4']} disabled={loaderState}>
+          <Button classes={['mt-4']} disabled={loaderState} type="submit">
             {t('enter')}
           </Button>
         </Form>

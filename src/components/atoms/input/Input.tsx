@@ -78,7 +78,7 @@ const Input: React.FC<InputProps> = ({ classes, ...props }: InputProps): ReactEl
     <div>
       <label htmlFor={name}>{label}</label>
       <input className={inputClass} {...props} />
-      {inputError && <div className={errorTextClass}>{t(inputError)}</div>}
+      {inputError ? <div className={errorTextClass}>{t(inputError)}</div> : null}
     </div>
   );
 };

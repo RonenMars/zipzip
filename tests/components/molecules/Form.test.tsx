@@ -1,14 +1,21 @@
-import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
+import * as Joi from 'joi';
+
 import { Input } from '@components/atoms';
 import { Form } from '@components/molecules';
+import React from 'react';
+
+const testFormSchema = Joi.object({
+  firstname: Joi.string(),
+  lastname: Joi.string(),
+});
 
 describe('Form', () => {
   it('updates formState when inputs change', () => {
     const { getByTestId } = render(
-      <Form>
-        <Input name="firstName" placeholder="First Name" data-testid="firstName-input" />
-        <Input name="lastName" placeholder="First Name" data-testid="lastName-input" />
+      <Form onSubmit={() => {}} validationSchema={testFormSchema}>
+        <Input data-testid="firstName-input" label="firstname" name="firstName" placeholder="First Name" />
+        <Input data-testid="lastName-input" label="lastname" name="lastName" placeholder="Last Name" />
       </Form>,
     );
 

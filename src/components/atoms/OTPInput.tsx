@@ -47,6 +47,7 @@ const OTPInput = ({ value, valueLength = 1, onChange, isError }: Props): ReactNo
     }
 
     return items;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   const inputOnChange = (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
@@ -152,22 +153,22 @@ const OTPInput = ({ value, valueLength = 1, onChange, isError }: Props): ReactNo
   };
 
   return (
-    <Form validationSchema={OTPInputSchema} onSubmit={() => {}}>
+    <Form onSubmit={() => {}} validationSchema={OTPInputSchema}>
       <div className="flex w-full gap-2 flex-row-reverse mt-6">
         {valueItems.map((digit, idx) => (
           <input
-            key={idx}
-            name={idx.toString()}
-            type="text"
-            inputMode="numeric"
             autoComplete="one-time-code"
-            pattern="\d{1}"
-            maxLength={valueLength}
             className={inputClass}
-            value={digit}
+            inputMode="numeric"
+            key={idx}
+            maxLength={valueLength}
+            name={idx.toString()}
             onChange={(e) => inputOnChange(e, idx)}
-            onKeyDown={inputOnKeyDown}
             onFocus={inputOnFocus}
+            onKeyDown={inputOnKeyDown}
+            pattern="\d{1}"
+            type="text"
+            value={digit}
           />
         ))}
       </div>

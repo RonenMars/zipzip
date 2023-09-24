@@ -10,7 +10,7 @@ import FormError from '@components/atoms/formError/FormError';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@redux/UserReducer';
 
-export const OTP: React.FC = (): ReactNode => {
+export const Otp: React.FC = (): ReactNode => {
   const { t } = useTranslation();
   const userPhone = PersistentStorage.getItem('userPhone');
   const [serverError, setServerError] = useState('');
@@ -49,7 +49,7 @@ export const OTP: React.FC = (): ReactNode => {
       <div className="flex justify-center flex-col">
         <h1 className="text-center">{t('enter')}</h1>
         <FormError error={serverError} />
-        <OTPInput value={otp} valueLength={OTP_LENGTH} onChange={onChange} isError={!!serverError.length} />
+        <OTPInput isError={!!serverError.length} onChange={onChange} value={otp} valueLength={OTP_LENGTH} />
       </div>
     </LoginWrapper>
   );

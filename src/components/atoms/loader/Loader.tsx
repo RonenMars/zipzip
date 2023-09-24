@@ -21,14 +21,12 @@ const Loader: FC = (): ReactElement => {
 
   return (
     <div>
-      {loaderState && (
-        <div>
+      {loaderState ? <div>
           <div className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <Lottie animationData={loaderAnimation} loop={true} style={style} />
           </div>
-          <div className="absolute z-10 h-full w-full bg-white opacity-30"></div>
-        </div>
-      )}
+          <div className="absolute z-10 h-full w-full bg-white opacity-30" />
+        </div> : null}
     </div>
   );
 };

@@ -13,9 +13,7 @@ import { ButtonProps } from '@components/atoms/button/interface/ButtonsInterface
  * @param {...any} [props.rest] - Any other props to be spread onto the underlying HTML button element.
  */
 
-const Button = ({ design = ButtonDesignTypes.Button, ...props }: ButtonProps) => {
-  const { children, classes, ...rest } = props;
-
+const Button = ({ design = ButtonDesignTypes.Button, children, classes, ...rest }: ButtonProps) => {
   const baseClass = ['w-full text-center'];
 
   const buttonClasses = [

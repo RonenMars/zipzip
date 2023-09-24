@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, OTP } from '@components/pages/login';
+import { Phone, Otp } from '@components/pages/login';
 import { createBrowserRouter } from 'react-router-dom';
 import { ProtectedLoginRoute } from './Protected/ProtectedLoginRoute';
 
@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
   {
     element: (
       <ProtectedLoginRoute>
-        <OTP />
+        <Otp />
       </ProtectedLoginRoute>
     ),
     path: '/otp',

@@ -2,7 +2,7 @@ import React, { useState, createContext, useEffect } from 'react';
 import { omit } from 'lodash';
 import { AnySchema, ValidationResult } from 'joi';
 import FormError from '@components/atoms/formError/FormError';
-import { FormValidationError, ServerError } from '@components/molecules';
+import { FormFields, FormValidationError, ServerError } from '@components/molecules';
 
 export const FormContext = createContext({});
 
@@ -46,7 +46,7 @@ export const Form = ({
   children: React.ReactNode;
   classes?: string;
   validationSchema: AnySchema;
-  onSubmit: Function;
+  onSubmit: (state: FormFields) => void;
   serverErrors?: string | Array<ServerError>;
 }) => {
   const [formState, setFormState] = useState<Record<string, string>>({});
@@ -138,7 +138,7 @@ export const Form = ({
 
   return (
     <FormContext.Provider value={formErrors}>
-      <form onSubmit={submitForm} className={classes}>
+      <form className={classes} onSubmit={submitForm}>
         <FormError error={globalError} />
         {childrenWithProps}
       </form>

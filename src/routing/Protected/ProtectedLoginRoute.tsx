@@ -10,7 +10,7 @@ export const ProtectedLoginRoute: React.FC<ProtectedLoginRouteInterface> = ({
   const userPhone = !!PersistentStorage.getItem('userPhone');
 
   if (!userPhone) {
-    return <Navigate to={redirectPath} replace />;
+    return <Navigate replace to={redirectPath} />;
   }
 
   return children;

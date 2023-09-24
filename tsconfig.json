@@ -29,7 +29,7 @@
       "@redux/*": ["./src/redux/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "setupTests.ts", "tests/**/*.tsx"],
   "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
