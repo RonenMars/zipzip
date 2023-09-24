@@ -9,13 +9,16 @@ import { PersistentStorage } from '@utils/localStorage/localStorage';
 import FormError from '@components/atoms/formError/FormError';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@redux/UserReducer';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight } from '@fortawesome/pro-solid-svg-icons';
 
 export const Otp: React.FC = (): ReactNode => {
   const { t } = useTranslation();
   const userPhone = PersistentStorage.getItem('userPhone');
   const [serverError, setServerError] = useState('');
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [otp, setOtp] = useState('');
   const onChange = async (value: string) => {
     setOtp(value);
@@ -30,7 +33,8 @@ export const Otp: React.FC = (): ReactNode => {
           data: { name, email, phone },
         } = response;
 
-        dispatch(setUser({ name, email, phone }));
+        dispatch(setUser({ name, email, phone, isLoggedIn: true }));
+        navigate('/app');
       } catch (error) {
         if (axios.isAxiosError(error)) {
           if (!error.response) {
@@ -47,7 +51,13 @@ export const Otp: React.FC = (): ReactNode => {
   return (
     <LoginWrapper>
       <div className="flex justify-center flex-col">
-        <h1 className="text-center">{t('enter')}</h1>
+        <div className="flex justify-center items-center">
+          <div className="flex-1 justify-self-start">
+            <FontAwesomeIcon icon={faChevronRight} onClick={() => navigate(-1)} className="cursor-pointer" />
+          </div>
+          <h1 className="flex-1 text-center">{t('enter')}</h1>
+          <div className="flex-1" />
+        </div>
         <FormError error={serverError} />
         <OTPInput isError={!!serverError.length} onChange={onChange} value={otp} valueLength={OTP_LENGTH} />
       </div>
