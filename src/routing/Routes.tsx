@@ -1,9 +1,11 @@
 import React from 'react';
 import { Phone, Otp } from '@components/pages/login';
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { LoginProtectedRoute, AppProtectedRoute } from './Protected';
 import { Home } from '@components/pages';
+import { PersistentStorage } from '@utils/localStorage/localStorage.ts';
 
+const isUserLoggedIn = PersistentStorage.getItem('userJWT');
 export const router = createBrowserRouter([
   {
     path: 'app',
@@ -18,7 +20,7 @@ export const router = createBrowserRouter([
     //     { path: 'other', element: <OtherComponent /> },
     //   ],
   },
-  { element: <Phone />, path: '/' },
+  { path: '/', element: isUserLoggedIn ? <Navigate replace to="/app" /> : <Phone /> },
   {
     element: (
       <LoginProtectedRoute>
