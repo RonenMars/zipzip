@@ -1,0 +1,7 @@
+{
+  "user.registration.validation.name.min": "השם שהוזן קצר מדי",
+  "user.registration.validation.name.max": "השם שהוזן ארוך מדי",
+  "user.registration.validation.name.required": "יש להזין שם מלא",
+  "user.registration.validation.email.format": "האימייל שהוזן איננו תקין",
+  "user.registration.validation.email.required": "יש להזין אימייל"
+}

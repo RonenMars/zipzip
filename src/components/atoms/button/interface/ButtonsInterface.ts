@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { ButtonDesignTypes } from '@components/atoms/button/ButtonEnums.ts';
 
 export interface ButtonProps
@@ -9,4 +9,5 @@ export interface ButtonProps
   design?: ButtonDesignTypes;
   inverse?: boolean;
   fill?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }

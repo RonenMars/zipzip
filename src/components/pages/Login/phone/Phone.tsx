@@ -72,6 +72,10 @@ export const Phone: React.FC = (): ReactNode => {
     }
   };
 
+  const goToRegister = () => {
+    navigate('/register');
+  };
+
   return (
     <AppWrapper>
       <div className="flex justify-center flex-col">
@@ -91,7 +95,7 @@ export const Phone: React.FC = (): ReactNode => {
         </Form>
         <div className="text-center">
           <h2 className="mt-4">{t('loginRegisterTitle')}</h2>
-          <Button classes={['w-full']} design={ButtonDesignTypes.link}>
+          <Button classes={['w-full']} design={ButtonDesignTypes.link} onClick={goToRegister}>
             {t('registerNow')}
           </Button>
         </div>
