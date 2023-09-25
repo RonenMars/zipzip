@@ -3,8 +3,8 @@
  *
  * @enum {number}
  * @readonly
- * @property {number} Button - Represents a regular button design.
- * @property {number} Link - Represents a link-style button design.
+ * @property {number} button - Represents a regular button design.
+ * @property {number} link - Represents a link-style button design.
  *
  * @example
  * import ButtonDesignTypes from './ButtonEnums';
@@ -14,6 +14,6 @@
  */
 
 export enum ButtonDesignTypes {
-  Button = 'button',
-  Link = 'link',
+  button = 'button',
+  link = 'link',
 }

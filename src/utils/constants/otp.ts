@@ -1,2 +1,2 @@
-export const RE_DIGIT = new RegExp(/^\d+$/);
-export const OTP_LENGTH = 4;
+export const regExpTestOnlyDigits = new RegExp(/^\d+$/);
+export const otpDigitsLength = 4;

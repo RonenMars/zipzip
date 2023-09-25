@@ -1,9 +1,9 @@
-import { OTP_LENGTH } from '@utils/constants/otp';
+import { otpDigitsLength } from '@utils/constants/otp';
 import * as Joi from 'joi';
 
 const buildSchema = () => {
   const otpSchema: { [key: number]: object } = {};
-  for (let i = 0; i < OTP_LENGTH; i++) {
+  for (let i = 0; i < otpDigitsLength; i++) {
     otpSchema[i] = Joi.string();
   }
   return otpSchema;

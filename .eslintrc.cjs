@@ -33,6 +33,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
   rules: {
+    // React Rules
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'react/prefer-stateless-function': 'error',
     'react/no-unused-prop-types': 'error',
@@ -70,7 +71,74 @@ module.exports = {
     'react/jsx-sort-props': 'warn',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-one-expression-per-line': 'off',
-    'react/prop-types': 'off'
+    'react/prop-types': 'off',
+    // TypeScript Rules
+    "@typescript-eslint/naming-convention": [
+      "warn",
+      {
+        selector: "default",
+        format: ["camelCase"],
+        leadingUnderscore: "allow",
+      },
+      {
+        selector: "variable",
+        // Specify PascalCase for React components
+        format: ["PascalCase", "camelCase"],
+        leadingUnderscore: "allow",
+      },
+      {
+        selector: "parameter",
+        format: ["camelCase"],
+        leadingUnderscore: "allow",
+      },
+      {
+        selector: "property",
+        format: null,
+        leadingUnderscore: "allow",
+      },
+      {
+        selector: "typeLike",
+        format: ["PascalCase"],
+      },
+    ],
+    // "filename-rules/match": [2, { ".ts": "camelcase", ".tsx": "pascalcase" }],
+    // "import/no-default-export": "error",
+    // // JSDoc Rules
+    // "jsdoc/require-throws": "error",
+    // "jsdoc/check-indentation": "warn",
+    // "jsdoc/no-blank-blocks": "warn",
+    // "jsdoc/require-asterisk-prefix": "warn",
+    // "jsdoc/require-description": "warn",
+    // "jsdoc/sort-tags": "warn",
+    // "jsdoc/check-syntax": "warn",
+    // "jsdoc/tag-lines": ["warn", "never", { startLines: 1 }],
+    // "jsdoc/require-param": ["warn", { checkDestructuredRoots: false }],
+    // "jsdoc/require-jsdoc": [
+    //   "warn",
+    //   {
+    //     publicOnly: true,
+    //     require: {
+    //       FunctionDeclaration: true,
+    //       FunctionExpression: true,
+    //       ArrowFunctionExpression: true,
+    //       ClassDeclaration: true,
+    //       ClassExpression: true,
+    //       MethodDefinition: true,
+    //     },
+    //     contexts: [
+    //       "VariableDeclaration",
+    //       "TSTypeAliasDeclaration",
+    //       // Encourage documenting React prop types
+    //       "TSPropertySignature",
+    //     ],
+    //     enableFixer: true,
+    //   },
+    // ],
+    // // TSDoc Rules
+    // "jsdoc/require-hyphen-before-param-description": "off",
+    // "jsdoc/require-returns": "off",
+    //
+    // "tsdoc/syntax": "warn",
 
   },
 

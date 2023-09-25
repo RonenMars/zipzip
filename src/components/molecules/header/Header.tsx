@@ -26,8 +26,8 @@ export const Header = () => {
   return (
     <div>
       <Menu open={isMenuOpen} setOpen={setMenuOpen} />
-      <Button classes={buttonClasses} inverse fill={isMenuOpen} onClick={toggleMenu}>
-        <motion.div variants={menuButton} animate={isMenuOpen ? 'open' : 'closed'}>
+      <Button classes={buttonClasses} fill={isMenuOpen} inverse onClick={toggleMenu}>
+        <motion.div animate={isMenuOpen ? 'open' : 'closed'} variants={menuButton}>
           {isMenuOpen ? (
             <FontAwesomeIcon icon={faXmark} onClick={() => {}} {...menuProps} />
           ) : (

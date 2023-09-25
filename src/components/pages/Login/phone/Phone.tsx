@@ -2,14 +2,14 @@ import React, { ReactNode, useState } from 'react';
 import { Button, Input } from '@components/atoms';
 import { Form, FormFields } from '@components/molecules';
 import { useTranslation } from 'react-i18next';
-import { ButtonDesignTypes } from '@components/atoms/button/ButtonEnums';
+import { ButtonDesignTypes } from '@components/atoms/button/ButtonEnums.ts';
 import API from '@api/index';
 import { LoginPhoneSchema } from '@validations/user/login/phone.schema';
 import { AppWrapper } from '@components/templates';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PersistentStorage } from '@utils/localStorage/localStorage';
-import { singleError } from '@components/pages/login/phone/interface/PhoneInterface.ts';
+import { SingleError } from '@components/pages/login/phone/interface/PhoneInterface.ts';
 import { setLoader } from '@redux/LoaderReducer.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@redux/index.ts';
@@ -38,7 +38,7 @@ import { RootState } from '@redux/index.ts';
 export const Phone: React.FC = (): ReactNode => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [errors, setErrors] = useState<Array<singleError>>([]);
+  const [errors, setErrors] = useState<Array<SingleError>>([]);
   const dispatch = useDispatch();
   const loaderState = useSelector((state: RootState) => state.loader.loading);
   const handleFormSubmit = async (phoneNumber: FormFields) => {
@@ -91,7 +91,7 @@ export const Phone: React.FC = (): ReactNode => {
         </Form>
         <div className="text-center">
           <h2 className="mt-4">{t('loginRegisterTitle')}</h2>
-          <Button design={ButtonDesignTypes.Link} classes={['w-full']}>
+          <Button classes={['w-full']} design={ButtonDesignTypes.link}>
             {t('registerNow')}
           </Button>
         </div>

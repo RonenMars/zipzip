@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonDesignTypes } from '@components/atoms/button/ButtonEnums';
+import { ButtonDesignTypes } from '@components/atoms/button/ButtonEnums.ts';
 import clsx from 'clsx';
 import { ButtonProps } from '@components/atoms/button/interface/ButtonsInterface';
 
@@ -15,7 +15,7 @@ import { ButtonProps } from '@components/atoms/button/interface/ButtonsInterface
  * @param {...any} [props.rest] - Any other props to be spread onto the underlying HTML button element.
  */
 
-const Button = ({ design = ButtonDesignTypes.Button, children, classes, inverse, fill, ...rest }: ButtonProps) => {
+const Button = ({ design = ButtonDesignTypes.button, children, classes, inverse, fill, ...rest }: ButtonProps) => {
   const baseClass = ['text-center'];
 
   let buttonClass = '';
@@ -38,8 +38,8 @@ const Button = ({ design = ButtonDesignTypes.Button, children, classes, inverse,
   if (!inverse && !fill) {
     buttonClass = clsx(
       baseClass,
-      design === ButtonDesignTypes.Button && buttonClasses,
-      design === ButtonDesignTypes.Link && linkClasses,
+      design === ButtonDesignTypes.button && buttonClasses,
+      design === ButtonDesignTypes.link && linkClasses,
       classes,
     );
   }

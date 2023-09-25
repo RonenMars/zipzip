@@ -27,8 +27,8 @@ type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Button: Story = {
-  args: { design: ButtonDesignTypes.Button, children: React.createElement('span', null, 'click me!') },
+  args: { design: ButtonDesignTypes.button, children: React.createElement('span', null, 'click me!') },
 };
 export const Link: Story = {
-  args: { design: ButtonDesignTypes.Link, children: React.createElement('span', null, 'click me!') },
+  args: { design: ButtonDesignTypes.link, children: React.createElement('span', null, 'click me!') },
 };

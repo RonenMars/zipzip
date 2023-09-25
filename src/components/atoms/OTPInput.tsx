@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useMemo } from 'react';
-import { RE_DIGIT } from '@utils/constants/otp';
+import { regExpTestOnlyDigits } from '@utils/constants/otp';
 import { Form } from '@components/molecules';
 import clsx from 'clsx';
 import { OTPInputSchema } from '@validations/otp/otp.schema';
@@ -39,7 +39,7 @@ const OTPInput = ({ value, valueLength = 1, onChange, isError }: Props): ReactNo
     for (let i = 0; i < valueLength; i++) {
       const char = valueArray[i];
 
-      if (RE_DIGIT.test(char)) {
+      if (regExpTestOnlyDigits.test(char)) {
         items.push(char);
       } else {
         items.push('');
@@ -53,7 +53,7 @@ const OTPInput = ({ value, valueLength = 1, onChange, isError }: Props): ReactNo
   const inputOnChange = (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
     const target = e.target;
     let targetValue = target.value.trim();
-    const isTargetValueDigit = RE_DIGIT.test(targetValue);
+    const isTargetValueDigit = regExpTestOnlyDigits.test(targetValue);
 
     if (!isTargetValueDigit && targetValue !== '') {
       return;
