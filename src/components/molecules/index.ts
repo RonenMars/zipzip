@@ -1,6 +1,6 @@
 import { Form, FormContext } from '@components/molecules/form/Form';
-import { Menu } from '@components/molecules/menu/Menu';
+import { Header } from '@components/molecules/header/Header.tsx';
 import { FormFields, FormValidationError, ServerError } from '@components/molecules/form/interface/FormInterface';
 
-export { Form, FormContext, Menu };
+export { Form, FormContext, Header };
 export type { FormFields, ServerError, FormValidationError };
