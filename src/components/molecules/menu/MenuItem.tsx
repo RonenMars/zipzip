@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface MenuItemInterace {
@@ -9,12 +9,23 @@ interface MenuItemInterace {
 }
 const MenuItem = ({ name, path, displaySeparator, onClick }: MenuItemInterace) => {
   const { t } = useTranslation();
+
+  const buttonize = (handlerFn: () => void) => {
+    return {
+      role: 'button',
+      onClick: () => handlerFn(),
+      onKeyDown: (event: KeyboardEvent<HTMLElement>) => {
+        if (event.key === '13') handlerFn();
+      },
+    };
+  };
+
   return (
     <div>
-      <div className="text-white text-3xl my-3 text-center cursor-pointer" onClick={() => onClick(path)}>
+      <div className="text-white text-3xl my-3 text-center cursor-pointer" {...buttonize(() => onClick(path))}>
         {t(name)}
       </div>
-      {displaySeparator && <hr className="text-white" />}
+      {displaySeparator ? <hr className="text-white" /> : null}
     </div>
   );
 };
