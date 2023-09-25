@@ -3,7 +3,7 @@ import { Phone, Otp } from '@components/pages/login';
 import { createBrowserRouter } from 'react-router-dom';
 import { LoginProtectedRoute, AppProtectedRoute } from '@routing/Protected';
 import { Home } from '@components/pages';
-import { Register } from '@components/pages/';
+import { Registration } from '@components/pages/';
 export const router = createBrowserRouter([
   {
     path: 'app',
@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
     //   ],
   },
   { path: '/', element: <Phone /> },
-  { path: '/register', element: <Register /> },
+  { path: '/register', element: <Registration /> },
   {
     element: (
       <LoginProtectedRoute>

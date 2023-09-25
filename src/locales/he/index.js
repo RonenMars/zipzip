@@ -4,11 +4,13 @@ import formValidations from '@/locales/he/forms/validations';
 import global from '@/locales/he/global/global';
 import menu from '@/locales/he/menu/menu';
 import register from '@/locales/he/register/register';
+import registerValidations from '@/locales/he/register/register.validations';
 
 export default {
   menu,
   global,
   login,
+  registerValidations,
   register,
   formValidations,
   loginValidations,

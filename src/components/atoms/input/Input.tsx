@@ -10,6 +10,9 @@ import { InputProps } from '@components/atoms/input/interface/InputInterface';
  * @component
  * @param {Object} props - The component's properties.
  * @param {Array<string>} [props.classes] - Additional CSS classes to apply to the input field.
+ * @param {string} [props.wrapperClasses] - Additional CSS classes to apply to the div of the input field.
+ * @param {string} [props.name] - Input name.
+ * @param {string} [props.label] - Input label.
  * @returns {React.ReactElement} The rendered input field component.
  *
  * @example
@@ -38,9 +41,8 @@ import { InputProps } from '@components/atoms/input/interface/InputInterface';
  * export default MyForm;
  */
 
-const Input: React.FC<InputProps> = ({ classes, ...props }: InputProps): ReactElement => {
+const Input: React.FC<InputProps> = ({ classes, wrapperClasses, ...props }: InputProps): ReactElement => {
   const { name, label } = props;
-
   const formErrors = useContext(FormContext);
 
   const currentFormErrors = formErrors as FormValidationError;
@@ -49,7 +51,7 @@ const Input: React.FC<InputProps> = ({ classes, ...props }: InputProps): ReactEl
   const { t } = useTranslation();
 
   const baseClass = useMemo(
-    () => ['w-full h-12 border border-purple rounded-full placeholder:text-center placeholder:text-base mt-4'],
+    () => ['w-full h-12 border border-purple rounded-full placeholder:text-center placeholder:text-base mt-1'],
     [],
   );
   const errorClass = 'border-red text-red';
@@ -75,7 +77,7 @@ const Input: React.FC<InputProps> = ({ classes, ...props }: InputProps): ReactEl
   }, [baseClass, classes, formErrors, name]);
 
   return (
-    <div>
+    <div className={wrapperClasses}>
       <label htmlFor={name}>{label}</label>
       <input className={inputClass} {...props} />
       {inputError ? <div className={errorTextClass}>{t(inputError)}</div> : null}

@@ -10,9 +10,8 @@ import FormError from '@components/atoms/formError/FormError';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@redux/UserReducer';
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight } from '@fortawesome/pro-solid-svg-icons';
 import { AuthContext } from '@routing/Protected/hooks/useAuth.tsx';
+import { BackHeader } from '@components/molecules/backHeader/BackHeader.tsx';
 
 export const Otp: React.FC = (): ReactNode => {
   const { t } = useTranslation();
@@ -56,13 +55,7 @@ export const Otp: React.FC = (): ReactNode => {
   return (
     <AppWrapper>
       <div className="flex justify-center flex-col">
-        <div className="flex justify-center items-center">
-          <div className="flex-1 justify-self-start">
-            <FontAwesomeIcon className="cursor-pointer" icon={faChevronRight} onClick={() => navigate(-1)} />
-          </div>
-          <h1 className="flex-1 text-center">{t('enter')}</h1>
-          <div className="flex-1" />
-        </div>
+        <BackHeader title={t('enter')} />
         <FormError error={serverError} />
         <OTPInput isError={!!serverError.length} onChange={onChange} value={otp} valueLength={otpDigitsLength} />
       </div>
