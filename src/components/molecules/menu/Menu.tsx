@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import MenuItem from '@components/molecules/menu/MenuItem.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { menuItems } from '@components/molecules/menu/consts/menuItems';
 
 interface MenuInterface {
   open: boolean;
@@ -13,26 +14,14 @@ export const Menu = ({ open, setOpen }: MenuInterface) => {
   const navigate = useNavigate();
   const mainContainer = document.getElementById('root') || document.body;
 
-  const menuItems = [
-    {
-      name: 'דף הבית',
-      path: '/app',
-    },
-    {
-      name: 'אודות',
-      path: '/about',
-    },
-    {
-      name: 'צור קשר',
-      path: '/contact',
-    },
-  ];
-
-  const onItemClick = (path: string) => {
-    if (path === location.pathname) {
-      setOpen(false);
+  const onItemClick = (path: string | (() => void)) => {
+    if (typeof path === 'string') {
+      if (path === location.pathname) {
+        setOpen(false);
+      } else {
+        navigate(path);
+      }
     } else {
-      navigate(path);
     }
   };
 
