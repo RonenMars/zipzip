@@ -2,7 +2,7 @@ import React, { ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AppWrapper } from '@components/templates';
 import OTPInput from '@components/atoms/OTPInput';
-import { OTP_LENGTH } from '@utils/constants/otp';
+import { otpDigitsLength } from '@utils/constants/otp';
 import API from '@api/index';
 import axios from 'axios';
 import { PersistentStorage } from '@utils/localStorage/localStorage';
@@ -22,7 +22,7 @@ export const Otp: React.FC = (): ReactNode => {
   const [otp, setOtp] = useState('');
   const onChange = async (value: string) => {
     setOtp(value);
-    if (value.trim().length === OTP_LENGTH) {
+    if (value.trim().length === otpDigitsLength) {
       try {
         const response = await API.post('/auth/login', {
           phone: userPhone,
@@ -30,13 +30,13 @@ export const Otp: React.FC = (): ReactNode => {
         });
 
         const {
-          data: { name, email, phone, access_token },
+          data: { name, email, phone, access_token: accessToken },
         } = response;
 
         dispatch(setUser({ name, email, phone, isLoggedIn: true }));
 
         PersistentStorage.setItem('userPhone', undefined);
-        PersistentStorage.setItem('userJWT', access_token);
+        PersistentStorage.setItem('userJWT', accessToken);
 
         navigate('/app');
       } catch (error) {
@@ -57,13 +57,13 @@ export const Otp: React.FC = (): ReactNode => {
       <div className="flex justify-center flex-col">
         <div className="flex justify-center items-center">
           <div className="flex-1 justify-self-start">
-            <FontAwesomeIcon icon={faChevronRight} onClick={() => navigate(-1)} className="cursor-pointer" />
+            <FontAwesomeIcon className="cursor-pointer" icon={faChevronRight} onClick={() => navigate(-1)} />
           </div>
           <h1 className="flex-1 text-center">{t('enter')}</h1>
           <div className="flex-1" />
         </div>
         <FormError error={serverError} />
-        <OTPInput isError={!!serverError.length} onChange={onChange} value={otp} valueLength={OTP_LENGTH} />
+        <OTPInput isError={!!serverError.length} onChange={onChange} value={otp} valueLength={otpDigitsLength} />
       </div>
     </AppWrapper>
   );

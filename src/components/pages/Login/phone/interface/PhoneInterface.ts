@@ -1,4 +1,4 @@
-export interface singleError {
+export interface SingleError {
   name: string;
   message: string;
 }
