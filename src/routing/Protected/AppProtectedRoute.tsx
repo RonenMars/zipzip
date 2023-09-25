@@ -1,15 +1,13 @@
+import React, { ReactNode, useContext } from 'react';
+
 import { Navigate } from 'react-router-dom';
-import React, { ReactNode } from 'react';
-import { ProtectedRouteInterface } from './interface/ProtectedInterface';
-import { useSelector } from 'react-redux';
-import { RootState } from '@redux/index.ts';
+import { AuthContext } from '@routing/Protected/hooks/useAuth';
+import { ProtectedRouteInterface } from '@routing/Protected/interface/ProtectedInterface.ts';
 
 export const AppProtectedRoute: React.FC<ProtectedRouteInterface> = ({ children, redirectPath = '/' }): ReactNode => {
-  const { isLoggedIn } = useSelector((state: RootState) => state.user);
-
-  if (!isLoggedIn) {
-    return <Navigate replace to={redirectPath} />;
+  const { jwtToken } = useContext(AuthContext);
+  if (!jwtToken) {
+    return <Navigate to={redirectPath} />;
   }
-
   return children;
 };

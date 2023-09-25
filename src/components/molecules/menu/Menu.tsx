@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import MenuItem from '@components/molecules/menu/MenuItem.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { menuItems } from '@components/molecules/menu/consts/menuItems';
+import { AuthContext } from '@routing/Protected/hooks/useAuth.tsx';
 
 interface MenuInterface {
   open: boolean;
@@ -13,16 +14,17 @@ export const Menu = ({ open, setOpen }: MenuInterface) => {
   const location = useLocation();
   const navigate = useNavigate();
   const mainContainer = document.getElementById('root') || document.body;
+  const { setJwtToken } = useContext(AuthContext);
 
-  const onItemClick = (path: string | (() => void)) => {
-    if (typeof path === 'string') {
-      if (path === location.pathname) {
+  const onItemClick = (menuItemAction: string) => {
+    if (menuItemAction !== 'logout') {
+      if (menuItemAction === location.pathname) {
         setOpen(false);
       } else {
-        navigate(path);
+        navigate(menuItemAction);
       }
     } else {
-      // TODO: handle in case of function
+      setJwtToken(undefined as unknown as string);
     }
   };
 
@@ -32,13 +34,13 @@ export const Menu = ({ open, setOpen }: MenuInterface) => {
         {open ? (
           <div className="absolute w-full h-full bg-purple-100 opacity-90 z-30 top-0 right-0">
             <div className="absolute top-1/3 right-1/2 transform translate-x-1/2 translate-y-1/2">
-              {menuItems.map(({ name, path }, index) => (
+              {menuItems.map(({ name, menuItemAction }, index) => (
                 <MenuItem
                   displaySeparator={index < menuItems.length - 1}
-                  key={`${path}${index}`}
+                  key={`${menuItemAction}${index}`}
                   name={name}
                   onClick={onItemClick}
-                  path={path}
+                  menuItemAction={menuItemAction}
                 />
               ))}
             </div>

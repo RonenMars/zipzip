@@ -13,6 +13,7 @@ export default defineConfig({
       '@validations': path.resolve(__dirname, './src/validations'),
       '@redux': path.resolve(__dirname, './src/redux'),
       '@routing': path.resolve(__dirname, './src/routing'),
+      '@auth': path.resolve(__dirname, './src/auth'),
     },
   },
   plugins: [react()],

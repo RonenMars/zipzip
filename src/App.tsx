@@ -7,6 +7,7 @@ import { store } from '@redux/index';
 import Loader from '@components/atoms/loader/Loader.tsx';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import { AuthProvider } from '@routing/Protected/hooks/useAuth';
 
 const persist = persistStore(store);
 
@@ -15,7 +16,9 @@ const App = () => {
     <Provider store={store}>
       <PersistGate persistor={persist}>
         <Loader />
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </PersistGate>
     </Provider>
   );

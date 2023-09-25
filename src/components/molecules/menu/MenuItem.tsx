@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 
 interface MenuItemInterace {
   name: string;
-  path: (() => void) | string;
+  menuItemAction: string;
   displaySeparator: boolean;
-  onClick: (path: string | (() => void)) => void;
+  onClick: (path: string) => void;
 }
-const MenuItem = ({ name, path, displaySeparator, onClick }: MenuItemInterace) => {
+const MenuItem = ({ name, menuItemAction, displaySeparator, onClick }: MenuItemInterace) => {
   const { t } = useTranslation();
 
   const buttonize = (handlerFn: () => void) => {
@@ -22,7 +22,10 @@ const MenuItem = ({ name, path, displaySeparator, onClick }: MenuItemInterace) =
 
   return (
     <div>
-      <div className="text-white text-3xl my-3 text-center cursor-pointer" {...buttonize(() => onClick(path))}>
+      <div
+        className="text-white text-3xl my-3 text-center cursor-pointer"
+        {...buttonize(() => onClick(menuItemAction))}
+      >
         {t(name)}
       </div>
       {displaySeparator ? <hr className="text-white" /> : null}

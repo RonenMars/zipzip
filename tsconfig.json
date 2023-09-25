@@ -22,12 +22,13 @@
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["./src/assets/*"],
-      "@components/*": ["./src/components/*"],
+      "@auth/*": ["./src/auth/*"],
       "@api/*": ["./src/api/*"],
-      "@validations/*": ["./src/validations/*"],
-      "@utils/*": ["./src/utils/*"],
+      "@components/*": ["./src/components/*"],
       "@redux/*": ["./src/redux/*"],
-      "@routing/*": ["./src/routing/*"]
+      "@routing/*": ["./src/routing/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@validations/*": ["./src/validations/*"],
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "setupTests.ts", "tests/**/*.tsx"],

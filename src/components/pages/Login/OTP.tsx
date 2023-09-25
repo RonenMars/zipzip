@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AppWrapper } from '@components/templates';
 import OTPInput from '@components/atoms/OTPInput';
@@ -12,6 +12,7 @@ import { setUser } from '@redux/UserReducer';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/pro-solid-svg-icons';
+import { AuthContext } from '@routing/Protected/hooks/useAuth.tsx';
 
 export const Otp: React.FC = (): ReactNode => {
   const { t } = useTranslation();
@@ -20,6 +21,8 @@ export const Otp: React.FC = (): ReactNode => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [otp, setOtp] = useState('');
+  const { setJwtToken } = useContext(AuthContext);
+
   const onChange = async (value: string) => {
     setOtp(value);
     if (value.trim().length === otpDigitsLength) {
@@ -34,9 +37,7 @@ export const Otp: React.FC = (): ReactNode => {
         } = response;
 
         dispatch(setUser({ name, email, phone, isLoggedIn: true }));
-
-        PersistentStorage.setItem('userPhone', undefined);
-        PersistentStorage.setItem('userJWT', accessToken);
+        setJwtToken(accessToken);
 
         navigate('/app');
       } catch (error) {
