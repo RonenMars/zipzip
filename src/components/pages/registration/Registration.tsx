@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AppWrapper } from '@components/templates';
 import { Form, FormFields } from '@components/molecules';
@@ -11,8 +11,8 @@ import { RegistrationSchema } from '@validations/user/register/registration.sche
 import { setLoader } from '@redux/LoaderReducer';
 import API from '@api/index';
 import { PersistentStorage } from '@utils/localStorage/localStorage';
-import { useNavigate } from 'react-router-dom';
 import { BackHeader } from '@components/molecules/backHeader/BackHeader.tsx';
+import { useNavigate } from 'react-router-dom';
 
 export const Registration = () => {
   const { t } = useTranslation();
@@ -20,37 +20,41 @@ export const Registration = () => {
   const loaderState = useSelector((state: RootState) => state.loader.loading);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    PersistentStorage.setItem('registrationState', true);
+  }, []);
+
   const handleFormSubmit = async (formFields: FormFields) => {
-    const { phone: userPhone } = formFields;
     dispatch(setLoader({ loading: true }));
+    try {
+      await API.post('/account/register', formFields);
+      const { phone: userPhone } = formFields;
+      PersistentStorage.setItem('userPhone', userPhone);
+      navigate('/otp');
 
-    // TODO: Handle form submission
+      dispatch(setLoader({ loading: false }));
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const serverErrors = error?.response?.data.message;
+        if (serverErrors) {
+          if (Array.isArray(serverErrors)) {
+            setErrors(serverErrors);
+          } else {
+            setErrors([
+              {
+                name: 'global',
+                message: serverErrors,
+              },
+            ]);
+          }
+        }
+      } else {
+        console.error(error);
+      }
 
-    // try {
-    //   await API.get(`/account/${userPhone}`);
-    //   PersistentStorage.setItem('userPhone', userPhone);
-    //   dispatch(setLoader({ loading: false }));
-    //   navigate('/otp');
-    // } catch (error) {
-    //   if (axios.isAxiosError(error)) {
-    //     const serverErrors = error?.response?.data.message;
-    //     if (serverErrors) {
-    //       if (Array.isArray(serverErrors)) {
-    //         setErrors(serverErrors);
-    //       } else {
-    //         setErrors([
-    //           {
-    //             name: 'global',
-    //             message: serverErrors,
-    //           },
-    //         ]);
-    //       }
-    //     }
-    //   } else {
-    //     console.error(error);
-    //   }
-    //   dispatch(setLoader({ loading: false }));
-    // }
+      dispatch(setLoader({ loading: false }));
+    }
     dispatch(setLoader({ loading: false }));
   };
 
@@ -64,7 +68,7 @@ export const Registration = () => {
             classes={['text-center']}
             disabled={loaderState}
             label={t('fullName')}
-            name="fullName"
+            name="name"
             placeholder={t('enterFullName')}
           />
           <Input

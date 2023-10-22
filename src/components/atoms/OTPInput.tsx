@@ -23,7 +23,10 @@ type Props = {
  * @returns {ReactNode} The rendered OTPInput component.
  */
 const OTPInput = ({ value, valueLength = 1, onChange, isError }: Props): ReactNode => {
-  const baseClass = useMemo(() => ['w-full h-16 border border-purple-300 text-center font-bold rounded-lg'], []);
+  const baseClass = useMemo(
+    () => ['w-full h-16 border border-purple-300 text-center font-bold rounded-lg dark:text-white'],
+    [],
+  );
 
   const [inputClass, setInputClass] = React.useState(clsx(baseClass));
   const errorClass = 'border-red text-red';

@@ -19,7 +19,7 @@ export const RegistrationSchema = Joi.object({
       'any.required': 'user.validation.phone.required',
       'string.empty': 'user.validation.phone.required',
     }),
-  fullName: Joi.string().min(2).max(16).required().messages({
+  name: Joi.string().min(2).max(16).required().messages({
     'string.min': 'user.registration.validation.name.min',
     'string.max': 'user.registration.validation.name.max',
     'any.required': 'user.registration.validation.name.required',

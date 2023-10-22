@@ -25,8 +25,11 @@ export const Otp: React.FC = (): ReactNode => {
   const onChange = async (value: string) => {
     setOtp(value);
     if (value.trim().length === otpDigitsLength) {
+      const isRegistration = PersistentStorage.getItem('registrationState');
+
+      const OTPVerificationURL = isRegistration ? '/account/register/validate' : '/auth/login';
       try {
-        const response = await API.post('/auth/login', {
+        const response = await API.post(OTPVerificationURL, {
           phone: userPhone,
           validationCode: value,
         });
@@ -37,7 +40,9 @@ export const Otp: React.FC = (): ReactNode => {
 
         dispatch(setUser({ name, email, phone, isLoggedIn: true }));
         setJwtToken(accessToken);
-
+        if (isRegistration) {
+          PersistentStorage.setItem('registrationState', false);
+        }
         navigate('/app');
       } catch (error) {
         if (axios.isAxiosError(error)) {
