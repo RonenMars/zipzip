@@ -64,30 +64,30 @@ export const Registration = () => {
         <BackHeader title={t('registration')} />
         <Form classes="pt-4" onSubmit={handleFormSubmit} serverErrors={errors} validationSchema={RegistrationSchema}>
           <Input
-            wrapperClasses="mt-4"
             classes={['text-center']}
             disabled={loaderState}
             label={t('fullName')}
             name="name"
             placeholder={t('enterFullName')}
+            wrapperClasses="mt-4"
           />
           <Input
-            wrapperClasses="mt-3"
             classes={['text-center']}
             dir="ltr"
             disabled={loaderState}
             label={t('phoneNumber')}
             name="phone"
             placeholder={t('enterPhone')}
+            wrapperClasses="mt-3"
           />
           <Input
-            wrapperClasses="mt-3"
             classes={['text-center']}
             dir="ltr"
             disabled={loaderState}
             label={t('email')}
             name="email"
             placeholder={t('enterEmail')}
+            wrapperClasses="mt-3"
           />
           <Button classes={['mt-4', 'w-full']} disabled={loaderState} type="submit">
             {t('registration')}

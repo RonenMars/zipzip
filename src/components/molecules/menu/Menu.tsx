@@ -38,9 +38,9 @@ export const Menu = ({ open, setOpen }: MenuInterface) => {
                 <MenuItem
                   displaySeparator={index < menuItems.length - 1}
                   key={`${menuItemAction}${index}`}
+                  menuItemAction={menuItemAction}
                   name={name}
                   onClick={onItemClick}
-                  menuItemAction={menuItemAction}
                 />
               ))}
             </div>
