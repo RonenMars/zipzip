@@ -6,8 +6,6 @@ import { PersistentStorage } from '@utils/localStorage/localStorage.ts';
 
 export const AppProtectedRoute: React.FC<ProtectedRouteInterface> = ({ children, redirectPath = '/' }): ReactNode => {
   const jwtToken = PersistentStorage.getItem('jwtToken');
-  console.log('jwtToken', jwtToken);
-
   if (!jwtToken) {
     return <Navigate to={redirectPath} />;
   }

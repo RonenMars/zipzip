@@ -16,8 +16,6 @@ export const Menu = ({ open, setOpen }: MenuInterface) => {
   const mainContainer = document.getElementById('root') || document.body;
 
   const onItemClick = (menuItemAction: string) => {
-    console.log('menuItemAction', menuItemAction);
-
     if (menuItemAction !== 'logout') {
       if (menuItemAction === location.pathname) {
         setOpen(false);
