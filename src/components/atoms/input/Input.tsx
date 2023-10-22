@@ -52,7 +52,7 @@ const Input: React.FC<InputProps> = ({ classes, wrapperClasses, ...props }: Inpu
 
   const baseClass = useMemo(
     () => [
-      'w-full h-12 border border-purple rounded-full placeholder:text-center placeholder:text-base mt-1 dark:text-white',
+      'w-full h-12 border border-purple rounded-full placeholder:text-center placeholder:text-base dark:text-white',
     ],
     [],
   );

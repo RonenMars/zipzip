@@ -89,14 +89,14 @@ export const Phone: React.FC = (): ReactNode => {
         <h1 className="text-center">{t('enter')}</h1>
         <Form classes="pt-4" onSubmit={handleFormSubmit} serverErrors={errors} validationSchema={LoginPhoneSchema}>
           <Input
-            classes={['text-center']}
+            classes={['text-center', 'my-4']}
             dir="ltr"
             disabled={loaderState}
             label={t('phoneNumber')}
             name="phone"
             placeholder={t('demoPhoneNumber')}
           />
-          <Button classes={['mt-4', 'w-full', 'p-4']} disabled={loaderState} type="submit">
+          <Button classes={['mt-4', 'w-full']} disabled={loaderState} type="submit">
             {t('enter')}
           </Button>
         </Form>
