@@ -41,6 +41,7 @@ export const Otp: React.FC = (): ReactNode => {
         if (isRegistration) {
           PersistentStorage.setItem('registrationState', false);
         }
+        PersistentStorage.setItem('userPhone', undefined);
         navigate('/app');
       } catch (error) {
         if (axios.isAxiosError(error)) {
