@@ -94,13 +94,13 @@ export const Phone: React.FC = (): ReactNode => {
             name="phone"
             placeholder={t('demoPhoneNumber')}
           />
-          <Button classes={['mt-4', 'w-full']} disabled={loaderState} type="submit">
+          <Button classes={['mt-4', 'w-full', 'p-4']} disabled={loaderState} type="submit">
             {t('enter')}
           </Button>
         </Form>
         <div className="text-center">
           <h2 className="mt-4">{t('loginRegisterTitle')}</h2>
-          <Button classes={['w-full']} design={ButtonDesignTypes.link} onClick={goToRegister}>
+          <Button classes={['w-full', 'p-4']} design={ButtonDesignTypes.link} onClick={goToRegister}>
             {t('registerNow')}
           </Button>
         </div>

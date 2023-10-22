@@ -29,7 +29,7 @@ const Button = ({ design = ButtonDesignTypes.button, children, classes, inverse,
   if (inverse) {
     buttonClass = clsx(
       classes,
-      'text-5xl p-4 text-center font-bold from-purple-100 to-purple-200 via-purple-500 bg-gradient-to-r bg-clip-text text-transparent',
+      'text-5xl text-center font-bold from-purple-100 to-purple-200 via-purple-500 bg-gradient-to-r bg-clip-text text-transparent',
     );
   }
   if (fill) {

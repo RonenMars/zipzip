@@ -4,6 +4,7 @@ import formValidations from '@/locales/he/forms/validations';
 import global from '@/locales/he/global/global';
 import menu from '@/locales/he/menu/menu';
 import register from '@/locales/he/register/register';
+import homepage from '@/locales/he/homepage/homepage';
 import registerValidations from '@/locales/he/register/register.validations';
 
 export default {
@@ -13,5 +14,6 @@ export default {
   registerValidations,
   register,
   formValidations,
+  homepage,
   loginValidations,
 };
