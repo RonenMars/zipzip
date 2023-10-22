@@ -9,6 +9,7 @@ type Props = {
   valueLength: number;
   onChange: (value: string) => void;
   isError: boolean;
+  disabled?: boolean;
 };
 
 /**
@@ -22,7 +23,7 @@ type Props = {
  *
  * @returns {ReactNode} The rendered OTPInput component.
  */
-const OTPInput = ({ value, valueLength = 1, onChange, isError }: Props): ReactNode => {
+const OTPInput = ({ value, valueLength = 1, onChange, isError, disabled }: Props): ReactNode => {
   const baseClass = useMemo(
     () => ['w-full h-16 border border-purple-300 text-center font-bold rounded-lg dark:text-white'],
     [],
@@ -172,6 +173,7 @@ const OTPInput = ({ value, valueLength = 1, onChange, isError }: Props): ReactNo
             pattern="\d{1}"
             type="text"
             value={digit}
+            disabled={disabled}
           />
         ))}
       </div>
