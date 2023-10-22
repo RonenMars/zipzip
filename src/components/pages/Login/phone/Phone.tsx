@@ -44,6 +44,7 @@ export const Phone: React.FC = (): ReactNode => {
 
   useEffect(() => {
     PersistentStorage.setItem('registrationState', false);
+    dispatch(setLoader({ loading: false }));
   }, []);
   const handleFormSubmit = async (phoneNumber: FormFields) => {
     const { phone: userPhone } = phoneNumber;
