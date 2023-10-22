@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AppWrapper } from '@components/templates';
 import OTPInput from '@components/atoms/OTPInput';
@@ -10,7 +10,6 @@ import FormError from '@components/atoms/formError/FormError';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@redux/UserReducer';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '@routing/Protected/hooks/useAuth.tsx';
 import { BackHeader } from '@components/molecules/backHeader/BackHeader.tsx';
 
 export const Otp: React.FC = (): ReactNode => {
@@ -20,7 +19,6 @@ export const Otp: React.FC = (): ReactNode => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [otp, setOtp] = useState('');
-  const { setJwtToken } = useContext(AuthContext);
 
   const onChange = async (value: string) => {
     setOtp(value);
@@ -39,7 +37,7 @@ export const Otp: React.FC = (): ReactNode => {
         } = response;
 
         dispatch(setUser({ name, email, phone, isLoggedIn: true }));
-        setJwtToken(accessToken);
+        PersistentStorage.setItem('jwtToken', accessToken);
         if (isRegistration) {
           PersistentStorage.setItem('registrationState', false);
         }

@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { Button, Input } from '@components/atoms';
 import { Form, FormFields } from '@components/molecules';
 import { useTranslation } from 'react-i18next';
@@ -41,6 +41,10 @@ export const Phone: React.FC = (): ReactNode => {
   const [errors, setErrors] = useState<Array<SingleError>>([]);
   const dispatch = useDispatch();
   const loaderState = useSelector((state: RootState) => state.loader.loading);
+
+  useEffect(() => {
+    PersistentStorage.setItem('registrationState', false);
+  }, []);
   const handleFormSubmit = async (phoneNumber: FormFields) => {
     const { phone: userPhone } = phoneNumber;
     dispatch(setLoader({ loading: true }));

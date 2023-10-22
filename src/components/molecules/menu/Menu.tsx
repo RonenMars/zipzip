@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import MenuItem from '@components/molecules/menu/MenuItem.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { menuItems } from '@components/molecules/menu/consts/menuItems';
-import { AuthContext } from '@routing/Protected/hooks/useAuth.tsx';
+import { PersistentStorage } from '@utils/localStorage/localStorage.ts';
 
 interface MenuInterface {
   open: boolean;
@@ -14,9 +14,10 @@ export const Menu = ({ open, setOpen }: MenuInterface) => {
   const location = useLocation();
   const navigate = useNavigate();
   const mainContainer = document.getElementById('root') || document.body;
-  const { setJwtToken } = useContext(AuthContext);
 
   const onItemClick = (menuItemAction: string) => {
+    console.log('menuItemAction', menuItemAction);
+
     if (menuItemAction !== 'logout') {
       if (menuItemAction === location.pathname) {
         setOpen(false);
@@ -24,7 +25,8 @@ export const Menu = ({ open, setOpen }: MenuInterface) => {
         navigate(menuItemAction);
       }
     } else {
-      setJwtToken(undefined as unknown as string);
+      PersistentStorage.setItem('jwtToken', '');
+      navigate('/');
     }
   };
 
