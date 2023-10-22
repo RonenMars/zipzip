@@ -7,10 +7,12 @@ import API from '@api/index';
 import axios from 'axios';
 import { PersistentStorage } from '@utils/localStorage/localStorage';
 import FormError from '@components/atoms/formError/FormError';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '@redux/UserReducer';
 import { useNavigate } from 'react-router-dom';
 import { BackHeader } from '@components/molecules/backHeader/BackHeader.tsx';
+import { RootState } from '@redux/index.ts';
+import { setLoader } from '@redux/LoaderReducer.ts';
 
 export const Otp: React.FC = (): ReactNode => {
   const { t } = useTranslation();
@@ -19,10 +21,12 @@ export const Otp: React.FC = (): ReactNode => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [otp, setOtp] = useState('');
-
+  const loaderState = useSelector((state: RootState) => state.loader.loading);
   const onChange = async (value: string) => {
     setOtp(value);
     if (value.trim().length === otpDigitsLength) {
+      dispatch(setLoader({ loading: true }));
+
       const isRegistration = PersistentStorage.getItem('registrationState');
 
       const OTPVerificationURL = isRegistration ? '/account/register/validate' : '/auth/login';
@@ -42,6 +46,8 @@ export const Otp: React.FC = (): ReactNode => {
           PersistentStorage.setItem('registrationState', false);
         }
         PersistentStorage.setItem('userPhone', undefined);
+        dispatch(setLoader({ loading: false }));
+
         navigate('/app');
       } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -52,6 +58,7 @@ export const Otp: React.FC = (): ReactNode => {
             setServerError(data.message);
           }
         }
+        dispatch(setLoader({ loading: false }));
       }
     }
   };
@@ -61,7 +68,13 @@ export const Otp: React.FC = (): ReactNode => {
       <div className="flex justify-center flex-col">
         <BackHeader title={t('enter')} />
         <FormError error={serverError} />
-        <OTPInput isError={!!serverError.length} onChange={onChange} value={otp} valueLength={otpDigitsLength} />
+        <OTPInput
+          disabled={loaderState}
+          isError={!!serverError.length}
+          onChange={onChange}
+          value={otp}
+          valueLength={otpDigitsLength}
+        />
       </div>
     </AppWrapper>
   );

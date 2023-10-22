@@ -163,6 +163,7 @@ const OTPInput = ({ value, valueLength = 1, onChange, isError, disabled }: Props
           <input
             autoComplete="one-time-code"
             className={inputClass}
+            disabled={disabled}
             inputMode="numeric"
             key={idx}
             maxLength={valueLength}
@@ -173,7 +174,6 @@ const OTPInput = ({ value, valueLength = 1, onChange, isError, disabled }: Props
             pattern="\d{1}"
             type="text"
             value={digit}
-            disabled={disabled}
           />
         ))}
       </div>

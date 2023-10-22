@@ -101,6 +101,7 @@ module.exports = {
         format: ["PascalCase"],
       },
     ],
+    "no-console": ["error", { allow: ["warn", "error"] }],
     // "filename-rules/match": [2, { ".ts": "camelcase", ".tsx": "pascalcase" }],
     // "import/no-default-export": "error",
     // // JSDoc Rules
