@@ -5,6 +5,7 @@ import MenuItem from '@components/molecules/menu/MenuItem.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { menuItems } from '@components/molecules/menu/consts/menuItems';
 import { PersistentStorage } from '@utils/localStorage/localStorage.ts';
+import Modal from '@components/molecules/modal/Modal';
 
 interface MenuInterface {
   open: boolean;
@@ -32,19 +33,17 @@ export const Menu = ({ open, setOpen }: MenuInterface) => {
     <AnimatePresence>
       <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
         {open ? (
-          <div className="absolute w-full h-full bg-purple-100 opacity-90 z-30 top-0 right-0">
-            <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2">
-              {menuItems.map(({ name, menuItemAction }, index) => (
-                <MenuItem
-                  displaySeparator={index < menuItems.length - 1}
-                  key={`${menuItemAction}${index}`}
-                  menuItemAction={menuItemAction}
-                  name={name}
-                  onClick={onItemClick}
-                />
-              ))}
-            </div>
-          </div>
+          <Modal>
+            {menuItems.map(({ name, menuItemAction }, index) => (
+              <MenuItem
+                displaySeparator={index < menuItems.length - 1}
+                key={`${menuItemAction}${index}`}
+                menuItemAction={menuItemAction}
+                name={name}
+                onClick={onItemClick}
+              />
+            ))}
+          </Modal>
         ) : null}
       </motion.div>
     </AnimatePresence>,
