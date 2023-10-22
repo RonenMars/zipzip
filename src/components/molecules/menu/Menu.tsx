@@ -24,7 +24,7 @@ export const Menu = ({ open, setOpen }: MenuInterface) => {
         navigate(menuItemAction);
       }
     } else {
-      PersistentStorage.setItem('jwtToken', '');
+      PersistentStorage.setItem('jwtToken', undefined);
       navigate('/');
     }
   };
