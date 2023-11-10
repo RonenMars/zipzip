@@ -3,7 +3,7 @@ import axios from 'axios';
 import { AppWrapper } from '@components/templates';
 import { Form, FormFields } from '@components/molecules';
 import { Button, Input } from '@components/atoms';
-import { SingleError } from '@components/pages/login/phone/interface/PhoneInterface';
+import { SingleError } from '@components/pages/Login/phone/interface/PhoneInterface';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@redux/index';
 import { useTranslation } from 'react-i18next';
@@ -61,7 +61,7 @@ export const Registration = () => {
   return (
     <AppWrapper>
       <div className="flex justify-center flex-col">
-        <BackHeader title={t('registration')} />
+        <BackHeader title={t('registrationTitle')} />
         <Form classes="pt-4" onSubmit={handleFormSubmit} serverErrors={errors} validationSchema={RegistrationSchema}>
           <Input
             classes={['text-center']}
@@ -90,7 +90,7 @@ export const Registration = () => {
             wrapperClasses="mt-3"
           />
           <Button classes={['mt-4', 'w-full']} disabled={loaderState} type="submit">
-            {t('registration')}
+            {t('registrationTitle')}
           </Button>
         </Form>
       </div>

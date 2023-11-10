@@ -2,14 +2,14 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import { Button, Input } from '@components/atoms';
 import { Form, FormFields } from '@components/molecules';
 import { useTranslation } from 'react-i18next';
-import { ButtonDesignTypes } from '@components/atoms/button/ButtonEnums.ts';
+import { ButtonDesignTypes } from '@components/atoms/button/ButtonEnums';
 import API from '@api/index';
 import { LoginPhoneSchema } from '@validations/user/login/phone.schema';
 import { AppWrapper } from '@components/templates';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PersistentStorage } from '@utils/localStorage/localStorage';
-import { SingleError } from '@components/pages/login/phone/interface/PhoneInterface.ts';
+import { SingleError } from '@components/pages/Login/phone/interface/PhoneInterface';
 import { setLoader } from '@redux/LoaderReducer.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@redux/index.ts';
@@ -86,7 +86,7 @@ export const Phone: React.FC = (): ReactNode => {
   return (
     <AppWrapper>
       <div className="flex justify-center flex-col">
-        <h1 className="text-center">{t('enter')}</h1>
+        <h1 className="text-center">{t('enterTitle')}</h1>
         <Form classes="pt-4" onSubmit={handleFormSubmit} serverErrors={errors} validationSchema={LoginPhoneSchema}>
           <Input
             classes={['text-center', 'my-4']}
@@ -97,7 +97,7 @@ export const Phone: React.FC = (): ReactNode => {
             placeholder={t('demoPhoneNumber')}
           />
           <Button classes={['mt-4', 'w-full']} disabled={loaderState} type="submit">
-            {t('enter')}
+            {t('enterTitle')}
           </Button>
         </Form>
         <div className="text-center">

@@ -4,5 +4,6 @@
   "email": "אימייל",
   "enterEmail": "הזינו את המייל שלכם",
   "enterPhone": "הזינו את מספר הפלאפון שלכם",
-  "registration": "הרשמה"
+  "registrationTitle": "הרשמה",
+  "registrationDescription": "כדי לאשר אתכם במערכת\nהזינו את המספר שקיבלתם בסמס"
 }
