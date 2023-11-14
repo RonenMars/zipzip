@@ -25,7 +25,7 @@ export const Otp: React.FC = (): ReactNode => {
   const isRegistration = PersistentStorage.getItem('registrationState');
 
   const localTimer = Number(PersistentStorage.getItem('otpLocalTimer'));
-  const otpLocalTimer = localTimer > 0 ? localTimer : 5;
+  const otpLocalTimer = localTimer > 0 ? localTimer : 30;
   const [timer, setTimer] = useState(otpLocalTimer);
 
   useEffect(() => {
@@ -64,6 +64,7 @@ export const Otp: React.FC = (): ReactNode => {
         }
         PersistentStorage.setItem('userPhone', undefined);
         dispatch(setLoader({ loading: false }));
+        PersistentStorage.setItem('otpLocalTimer', undefined);
 
         navigate('/app');
       } catch (error) {

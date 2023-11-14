@@ -61,7 +61,7 @@ export const Registration = () => {
   return (
     <AppWrapper>
       <div className="flex justify-center flex-col">
-        <BackHeader title={t('registrationTitle')} />
+        <BackHeader title={t('registrationTitle')} fallbackRoute={'/'} />
         <Form classes="pt-4" onSubmit={handleFormSubmit} serverErrors={errors} validationSchema={RegistrationSchema}>
           <Input
             classes={['text-center']}
