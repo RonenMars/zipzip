@@ -10,7 +10,7 @@ type ModalProps = {
 const Modal = ({ children, wrapperClasses, classes }: ModalProps) => {
   const wrapperClass = clsx('absolute w-full h-full bg-purple-100 opacity-90 z-30 top-0 right-0', wrapperClasses);
 
-  const modalClasses = clsx('absolute top-1/3 right-1/2 transform translate-x-1/2 translate-y-1/2', classes);
+  const modalClasses = clsx('absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2', classes);
 
   return (
     <div className={wrapperClass}>
