@@ -6,6 +6,7 @@ import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { Button } from '@components/atoms';
 import { Header } from '@components/molecules';
 import { useTranslation } from 'react-i18next';
+import AddCoupon from '@components/pages/AddCoupon.tsx';
 
 export const Home: React.FC = (): ReactNode => {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ export const Home: React.FC = (): ReactNode => {
           </Button>
         </div>
       </div>
+      <AddCoupon />
     </AppWrapper>
   );
 };

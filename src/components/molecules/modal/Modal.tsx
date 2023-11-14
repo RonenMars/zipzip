@@ -1,13 +1,20 @@
 import React from 'react';
 import { ReactNode } from 'react';
+import clsx from 'clsx';
 
 type ModalProps = {
   children: ReactNode;
+  wrapperClasses?: Array<string>;
+  classes?: Array<string>;
 };
-const Modal = ({ children }: ModalProps) => {
+const Modal = ({ children, wrapperClasses, classes }: ModalProps) => {
+  const wrapperClass = clsx('absolute w-full h-full bg-purple-100 opacity-90 z-30 top-0 right-0', wrapperClasses);
+
+  const modalClasses = clsx('absolute top-1/3 right-1/2 transform translate-x-1/2 translate-y-1/2', classes);
+
   return (
-    <div className="absolute w-full h-full bg-purple-100 opacity-90 z-30 top-0 right-0">
-      <div className="absolute top-1/3 right-1/2 transform translate-x-1/2 translate-y-1/2">{children}</div>
+    <div className={wrapperClass}>
+      <div className={modalClasses}>{children}</div>
     </div>
   );
 };
