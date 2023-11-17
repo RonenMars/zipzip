@@ -6,6 +6,7 @@ import menu from '@/locales/he/menu/menu';
 import register from '@/locales/he/register/register';
 import homepage from '@/locales/he/homepage/homepage';
 import registerValidations from '@/locales/he/register/register.validations';
+import addCoupon from '@/locales/he/homepage/add-coupon.json';
 
 export default {
   menu,
@@ -16,4 +17,5 @@ export default {
   formValidations,
   homepage,
   loginValidations,
+  addCoupon,
 };

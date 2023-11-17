@@ -11,6 +11,9 @@ interface MenuInterface {
   open: boolean;
   setOpen: (newState: boolean) => void;
 }
+
+const menuModal = 'MenuModal';
+
 export const Menu = ({ open, setOpen }: MenuInterface) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -33,7 +36,7 @@ export const Menu = ({ open, setOpen }: MenuInterface) => {
     <AnimatePresence>
       <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
         {open ? (
-          <Modal>
+          <Modal name={menuModal} hideCloseButton>
             {menuItems.map(({ name, menuItemAction }, index) => (
               <MenuItem
                 displaySeparator={index < menuItems.length - 1}

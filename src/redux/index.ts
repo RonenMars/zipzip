@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import UserReducer from '@redux/UserReducer';
-import LoaderReducer from '@redux/LoaderReducer.ts';
+import LoaderReducer from '@redux/LoaderReducer';
+import ModalsReducer from '@redux/ModalsReducer';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 
@@ -12,6 +13,7 @@ const persistConfig = {
 const rootReducers = combineReducers({
   user: UserReducer,
   loader: LoaderReducer,
+  modals: ModalsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
