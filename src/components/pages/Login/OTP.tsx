@@ -13,6 +13,8 @@ import { useNavigate } from 'react-router-dom';
 import { BackHeader } from '@components/molecules/backHeader/BackHeader';
 import { RootState } from '@redux/index';
 import { setLoader } from '@redux/LoaderReducer';
+import { Button } from '@components/atoms';
+import { ButtonDesignTypes } from '@components/atoms/button/ButtonEnums.ts';
 
 export const Otp: React.FC = (): ReactNode => {
   const { t } = useTranslation();
@@ -83,7 +85,46 @@ export const Otp: React.FC = (): ReactNode => {
   const pageTitle = isRegistration ? t('registrationTitle') : t('enterTitle');
   const pageDescription = isRegistration ? t('registrationDescription') : '';
 
-  const timerStr = timer > 0 && `00:${timer >= 10 ? timer : '0' + timer}`;
+  const resendOTP = async () => {
+    try {
+      await API.post('/account/otp/resend', {
+        phone: userPhone,
+      });
+
+      dispatch(setLoader({ loading: false }));
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log('error', error);
+
+        const serverErrors = error?.response?.data.message;
+        if (serverErrors) {
+          if (Array.isArray(serverErrors)) {
+            // setErrors(serverErrors);
+          } else {
+            // setErrors([
+            //   {
+            //     name: 'global',
+            //     message: serverErrors,
+            //   },
+            // ]);
+          }
+        }
+      } else {
+        console.error(error);
+      }
+      dispatch(setLoader({ loading: false }));
+    }
+  };
+
+  // TODO Success message if the code were successfully resent
+  const timerStr =
+    timer > 0 ? (
+      `00:${timer >= 10 ? timer : '0' + timer}`
+    ) : (
+      <Button design={ButtonDesignTypes.link} onClick={resendOTP} classes={['mt-4']}>
+        {t('resendOTP')}
+      </Button>
+    );
 
   return (
     <AppWrapper>

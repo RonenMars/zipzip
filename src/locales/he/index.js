@@ -7,15 +7,17 @@ import register from '@/locales/he/register/register';
 import homepage from '@/locales/he/homepage/homepage';
 import registerValidations from '@/locales/he/register/register.validations';
 import addCoupon from '@/locales/he/homepage/add-coupon.json';
+import otp from '@/locales/he/login/otp.json';
 
 export default {
-  menu,
-  global,
-  login,
-  registerValidations,
-  register,
-  formValidations,
-  homepage,
-  loginValidations,
   addCoupon,
+  formValidations,
+  global,
+  homepage,
+  login,
+  loginValidations,
+  menu,
+  otp,
+  register,
+  registerValidations,
 };
