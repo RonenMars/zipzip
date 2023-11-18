@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "storybook": "storybook dev",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "tailwind-config-viewer": "tailwind-config-viewer -o --config tailwind.config.cjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
@@ -74,6 +75,7 @@
     "jest-environment-jsdom": "^29.3.1",
     "postcss": "^8.4.27",
     "storybook": "^7.4.0",
+    "tailwind-config-viewer": "^1.7.3",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
