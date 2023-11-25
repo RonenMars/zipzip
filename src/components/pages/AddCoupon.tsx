@@ -4,7 +4,7 @@ import { Button, Input } from '@components/atoms';
 import { Form, FormFields } from '@components/molecules';
 import Modal from '@components/molecules/modal/Modal';
 import { useTranslation } from 'react-i18next';
-import { SingleError } from '@components/pages/Login/phone/interface/PhoneInterface';
+import { SingleError } from '@components/pages/login/phone/interface/PhoneInterface';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@redux/index.ts';
 import { useNavigate } from 'react-router-dom';

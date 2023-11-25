@@ -19,7 +19,7 @@ import { ButtonDesignTypes } from '@components/atoms/button/ButtonEnums.ts';
 export const Otp: React.FC = (): ReactNode => {
   const { t } = useTranslation();
   const userPhone = PersistentStorage.getItem('userPhone');
-  const [serverError, setServerError] = useState('');
+  const [error, setError] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [otp, setOtp] = useState('');
@@ -29,30 +29,52 @@ export const Otp: React.FC = (): ReactNode => {
   const localTimer = Number(PersistentStorage.getItem('otpLocalTimer'));
   const otpLocalTimer = localTimer > 0 ? localTimer : 30;
   const [timer, setTimer] = useState(otpLocalTimer);
+  const [otpResent, setOtpResent] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
+  let timerInterval: ReturnType<typeof setInterval>;
+
+  const createTimerInterval = () => {
+    return setInterval(() => {
       setTimer((prevTimer) => {
         if (prevTimer <= 1) {
-          clearInterval(interval);
+          clearInterval(timerInterval);
         }
         PersistentStorage.setItem('otpLocalTimer', prevTimer - 1);
         return prevTimer - 1;
       });
     }, 1000);
-    return () => clearInterval(interval);
+  };
+
+  const handleError = (error: any): void => {
+    if (axios.isAxiosError(error)) {
+      if (!error.response) {
+        setError(t('generalServerError'));
+      } else {
+        const { data } = error.response!;
+        setError(data.message);
+      }
+    }
+  };
+
+  useEffect(() => {
+    timerInterval = createTimerInterval();
+    return () => clearInterval(timerInterval);
   }, []);
 
-  const onChange = async (value: string) => {
+  const onChange = (value: string) => {
     setOtp(value);
-    if (value.trim().length === otpDigitsLength) {
+    setError('');
+  };
+
+  const loginWithOTP = async () => {
+    if (otp.trim().length === otpDigitsLength) {
       dispatch(setLoader({ loading: true }));
 
       const OTPVerificationURL = isRegistration ? '/account/register/validate' : '/auth/login';
       try {
         const response = await API.post(OTPVerificationURL, {
           phone: userPhone,
-          validationCode: value,
+          validationCode: otp,
         });
 
         const {
@@ -72,74 +94,75 @@ export const Otp: React.FC = (): ReactNode => {
       } catch (error) {
         if (axios.isAxiosError(error)) {
           if (!error.response) {
-            setServerError(t('generalServerError'));
+            setError(t('generalServerError'));
           } else {
             const { data } = error.response!;
-            setServerError(data.message);
+            setError(data.message);
           }
         }
+        setOtpResent(false);
         dispatch(setLoader({ loading: false }));
       }
     }
   };
+
   const pageTitle = isRegistration ? t('registrationTitle') : t('enterTitle');
   const pageDescription = isRegistration ? t('registrationDescription') : '';
+
+  const resetTimer = () => {
+    timerInterval = createTimerInterval();
+    setTimer(30);
+  };
 
   const resendOTP = async () => {
     try {
       await API.post('/account/otp/resend', {
         phone: userPhone,
       });
-
-      dispatch(setLoader({ loading: false }));
+      resetTimer();
+      setOtpResent(true);
+      setError('');
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.log('error', error);
-
-        const serverErrors = error?.response?.data.message;
-        if (serverErrors) {
-          if (Array.isArray(serverErrors)) {
-            // setErrors(serverErrors);
-          } else {
-            // setErrors([
-            //   {
-            //     name: 'global',
-            //     message: serverErrors,
-            //   },
-            // ]);
-          }
-        }
-      } else {
-        console.error(error);
-      }
+      handleError(error);
       dispatch(setLoader({ loading: false }));
+      setOtpResent(false);
     }
   };
-
-  // TODO Success message if the code were successfully resent
-  const timerStr =
-    timer > 0 ? (
-      `00:${timer >= 10 ? timer : '0' + timer}`
-    ) : (
-      <Button design={ButtonDesignTypes.link} onClick={resendOTP} classes={['mt-4']}>
-        {t('resendOTP')}
-      </Button>
-    );
 
   return (
     <AppWrapper>
       <div className="flex justify-center flex-col">
         <BackHeader title={pageTitle} />
         <p className="text-center whitespace-pre-line">{pageDescription}</p>
-        <FormError error={serverError} />
+        <FormError error={error} />
         <OTPInput
           disabled={loaderState}
-          isError={!!serverError.length}
+          isError={!!error.length}
           onChange={onChange}
           value={otp}
           valueLength={otpDigitsLength}
         />
-        <p className="text-center whitespace-pre-line">{timerStr}</p>
+        <div className="mt-4">
+          {otpResent && <div className="text-sm text-green-600">{t('codeResentSuccess')}</div>}
+          <div className="text-sm">{t('didntReceivedTheCode')}</div>
+          {timer > 0 ? (
+            <div className="text-sm">
+              {t('askToResendOTP')}
+              <p className="text-center whitespace-pre-line inline">
+                {' '}
+                {`00:${timer >= 10 ? timer : '0' + timer} ${t('seconds')}`}
+              </p>
+            </div>
+          ) : (
+            <Button design={ButtonDesignTypes.link} onClick={resendOTP}>
+              {t('resendOTP')}
+            </Button>
+          )}
+        </div>
+
+        <Button onClick={loginWithOTP} classes={['mt-4']}>
+          {t('enterTitle')}
+        </Button>
       </div>
     </AppWrapper>
   );
