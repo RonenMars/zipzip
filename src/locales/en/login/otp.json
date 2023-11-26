@@ -1,0 +1,7 @@
+{
+  "resendOTP": "שלח את הקוד מחדש",
+  "askToResendOTP": "תוכלו לשלוח את הקוד מחדש בעוד",
+  "seconds": "שניות",
+  "codeResentSuccess": "הקוד נשלח בהצלחה",
+  "didntReceivedTheCode": "לא קיבלתם את הקוד?"
+}

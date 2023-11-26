@@ -1,0 +1,6 @@
+{
+  "user.validation.phone.length": "מספר חייב להיות בן 10 ספרות",
+  "user.validation.phone.pattern": "יש להקליד ספרות בלבד",
+  "user.validation.phone.isLocalValid": "מספר הטלפון שהוזן איננו תקין",
+  "user.validation.phone.required": "יש להזין מספר טלפון"
+}

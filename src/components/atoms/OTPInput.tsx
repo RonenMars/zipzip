@@ -155,7 +155,7 @@ const OTPInput = ({ value, valueLength = 1, onChange, isError, disabled }: Props
 
   return (
     <Form onSubmit={() => {}} validationSchema={OTPInputSchema}>
-      <div className="flex w-full gap-2 flex-row-reverse mt-6">
+      <div className="flex w-full gap-2 flex-row-reverse mt-6" dir="rtl">
         {valueItems.map((digit, idx) => (
           <input
             autoComplete="one-time-code"
